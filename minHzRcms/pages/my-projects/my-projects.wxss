@@ -1,0 +1,506 @@
+/* pages/my-projects/my-projects.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding: 20rpx;
+}
+
+/* 统计区域 */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.stats-item {
+  text-align: center;
+}
+
+.stats-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #007AFF;
+  margin-bottom: 8rpx;
+}
+
+.stats-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  margin-bottom: 30rpx;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #007AFF, #4CAF50);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 122, 255, 0.3);
+}
+
+.action-btn.primary:active {
+  opacity: 0.9;
+}
+
+/* 标签页 */
+.tabs-section {
+  display: flex;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 12rpx;
+  font-size: 26rpx;
+  color: #666;
+  border-radius: 12rpx;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  background-color: #007AFF;
+  color: #fff;
+  font-weight: 500;
+}
+
+.tab-item:active {
+  opacity: 0.8;
+}
+
+/* 项目等级标签样式 */
+.project-level-label {
+  font-size: 20rpx;
+  color: #fff;
+  margin-left: 8rpx;
+  padding: 3rpx 10rpx;
+  border-radius: 8rpx;
+  font-weight: 400;
+  opacity: 0.7;
+  filter: grayscale(20%);
+  display: inline-block;
+}
+
+.project-level-label.long-term {
+  background-color: #6c757d;
+}
+
+.project-level-label.urgent {
+  background-color: #dc3545;
+}
+
+.project-level-label.important {
+  background-color: #fd7e14;
+}
+
+.project-level-label.normal {
+  background-color: #28a745;
+}
+
+.project-status-label {
+  font-size: 20rpx;
+  font-weight: 400;
+  color: #666;
+}
+
+
+
+/* 项目列表 */
+.project-list {
+  margin-bottom: 30rpx;
+}
+
+.project-item {
+  background-color: #fafafa;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1rpx solid #e8e8e8;
+}
+
+
+
+.project-content {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8rpx;
+  padding: 8rpx;
+  position: relative;
+  z-index: 10;
+}
+
+.project-content:active {
+  background-color: #e0e0e0;
+  transform: scale(0.98);
+}
+
+.project-content:hover {
+  background-color: #f5f5f5;
+}
+
+.project-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.project-title-section {
+  display: flex;
+  align-items: flex-end;
+  gap: 12rpx;
+  flex: 1;
+}
+
+.project-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.project-status {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.project-status.ongoing {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.project-status.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.project-status.pending {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.project-status.overdue {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* 项目信息 */
+.project-info {
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 12rpx;
+  min-height: 40rpx;
+  align-items: center;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #666;
+  min-width: 140rpx;
+  line-height: 1.4;
+}
+
+.value {
+  font-size: 26rpx;
+  color: #333;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.priority-high {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.priority-medium {
+  color: #ffc107;
+  font-weight: 500;
+}
+
+.priority-low {
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* 项目描述 */
+.project-description {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20rpx;
+  padding: 16rpx;
+  background-color: #f8f9fa;
+  border-radius: 8rpx;
+}
+
+/* 进度条 */
+.project-progress {
+  margin-bottom: 20rpx;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+  align-items: center;
+}
+
+.progress-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background-color: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #007AFF, #28a745);
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+/* 附件列表 */
+.attachments-section {
+  margin-bottom: 20rpx;
+}
+
+.attachments-title {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.attachments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.attachment-tag {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 20rpx;
+  padding: 8rpx 16rpx;
+  font-size: 22rpx;
+  color: #666;
+}
+
+.attachment-icon {
+  font-size: 24rpx;
+  margin-right: 8rpx;
+}
+
+.attachment-name {
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 操作按钮 */
+.project-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 64rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #333;
+  padding: 0 16rpx;
+  min-height: 64rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.action-btn:active {
+  background-color: #f5f5f5;
+}
+
+.action-btn.delete {
+  color: #ff4757;
+  border-color: #ff4757;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx 20rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 必填字段标记 */
+.required {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.project-members {
+  margin: 24rpx 0;
+  padding: 16rpx;
+  background-color: #f8f9fa;
+  border-radius: 8rpx;
+  border: 1rpx solid #e9ecef;
+}
+
+.members-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.members-title-section {
+  display: flex;
+  align-items: center;
+}
+
+.members-title {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.members-count {
+  font-size: 22rpx;
+  color: #666;
+  margin-left: 8rpx;
+}
+
+.expand-icon {
+  font-size: 20rpx;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+/* 项目成员区域优化 */
+.members-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 16rpx;
+  /* 默认不展开，高度为0 */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.members-grid.expanded {
+  /* 展开时显示所有行，设置足够大的高度 */
+  max-height: 300rpx;
+}
+
+.member-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80rpx;
+  height: 90rpx;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.member-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  background-color: #f0f0f0;
+  color: #666;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  margin-bottom: 6rpx;
+  flex-shrink: 0;
+  border: 1rpx solid #e0e0e0;
+}
+
+.member-name {
+  font-size: 18rpx;
+  color: #888;
+  line-height: 1.2;
+  max-width: 80rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 0rpx;
+  transform: scale(0.9);
+  transform-origin: center;
+  height: 24rpx;
+  display: block;
+}
+
+.more-members {
+  opacity: 0.8;
+}
+
+.more-avatar {
+  background-color: #e0e0e0 !important;
+  color: #999 !important;
+  font-size: 20rpx !important;
+} 

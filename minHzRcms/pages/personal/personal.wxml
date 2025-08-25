@@ -1,0 +1,81 @@
+<!--pages/personal/personal.wxml-->
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <view class="user-header">
+      <view class="user-avatar-container">
+        <image 
+          class="avatar" 
+          src="{{userInfo.avatarUrl || '/utils/images/default-avatar.png'}}"
+          mode="aspectFill"
+        />
+        <view class="avatar-status {{isLoggedIn ? 'online' : 'offline'}}"></view>
+      </view>
+      <view class="user-details">
+        <text class="nickname">{{userInfo.realName || userInfo.nickName || '微信用户'}}</text>
+        <text class="user-role">{{userInfo.role || '项目成员'}}</text>
+        <view class="status-badge {{isLoggedIn ? 'online' : 'offline'}}">
+          <view class="status-dot"></view>
+          <text class="status-text">{{isLoggedIn ? '在线' : '离线'}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="user-actions" wx:if="{{userInfo.nickName}}">
+      <!-- 编辑资料按钮 -->
+      <button 
+        class="action-btn secondary-btn" 
+        bindtap="editProfile"
+      >
+        <text class="btn-icon">✏️</text>
+        <text class="btn-text">编辑资料</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 统计数据区域 -->
+  <stats-section 
+    stats="{{statsData}}" 
+    layout="grid4"
+    bind:actionButtonTap="onActionButtonTap"
+  />
+
+  <!-- 功能按钮区域 -->
+  <action-buttons 
+    buttons="{{actionButtons}}"
+    bind:buttonTap="onActionButtonTap"
+  />
+
+  <!-- 菜单列表 -->
+  <view class="menu-section">
+    <view class="menu-list">
+      <view 
+        class="menu-item" 
+        wx:for="{{menuItems}}" 
+        wx:key="index"
+        bindtap="navigateToMenu"
+        data-index="{{index}}"
+      >
+        <view class="menu-icon">{{item.icon}}</view>
+        <view class="menu-content">
+          <text class="menu-title">{{item.title}}</text>
+          <text class="menu-arrow">></text>
+        </view>
+      </view>
+      
+      <!-- 测试登录按钮 -->
+      <view class="menu-item" bindtap="navigateToTest">
+        <view class="menu-icon">🧪</view>
+        <view class="menu-content">
+          <text class="menu-title">登录测试</text>
+          <text class="menu-arrow">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 登录状态提示 -->
+  <view class="login-tip" wx:if="{{!isLoggedIn}}">
+    <text class="tip-text">正在自动登录中...</text>
+  </view>
+</view>

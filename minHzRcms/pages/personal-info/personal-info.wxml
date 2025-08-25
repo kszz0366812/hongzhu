@@ -1,0 +1,90 @@
+<!--pages/personal-info/personal-info.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">个人资料</text>
+  </view>
+
+  <!-- 登录状态 -->
+  <view class="login-status">
+    <view class="status-item">
+      <text class="label">登录状态：</text>
+      <text class="value {{isLoggedIn ? 'success' : 'error'}}">
+        {{isLoggedIn ? '已登录' : '未登录'}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 用户信息 -->
+  <view class="user-info" wx:if="{{userInfo}}">
+    <view class="avatar-section">
+      <image 
+        class="avatar" 
+        src="{{userInfo.avatarUrl || '/utils/images/default-avatar.png'}}"
+        mode="aspectFill"
+      />
+      <view class="avatar-info">
+        <text class="nickname">{{userInfo.realName || userInfo.nickName || userInfo.nickname || '微信用户'}}</text>
+        <text class="gender">{{userInfo.gender === 1 ? '男' : userInfo.gender === 2 ? '女' : '未知'}}</text>
+      </view>
+    </view>
+
+    <view class="info-list">
+      <view class="info-item">
+        <text class="label">姓名：</text>
+        <text class="value">{{userInfo.realName || '未设置'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">昵称：</text>
+        <text class="value">{{userInfo.nickName || userInfo.nickname || '未设置'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">地区：</text>
+        <text class="value">{{userInfo.country || ''}} {{userInfo.province || ''}} {{userInfo.city || ''}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">员工号：</text>
+        <text class="value">{{userInfo.employeeCode || '未绑定'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 未获取用户信息时的提示 -->
+  <view class="no-user-info" wx:if="{{!userInfo || !hasUserProfile}}">
+    <view class="empty-state">
+      <image class="empty-icon" src="/utils/images/default-avatar.png" />
+      <text class="empty-text">未获取用户信息</text>
+      <text class="empty-desc">点击下方按钮获取微信用户信息</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <!-- 获取用户信息按钮 -->
+    <button 
+      class="btn btn-primary" 
+      bindtap="getUserProfile"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+      wx:if="{{!hasUserProfile}}"
+    >
+      获取用户信息
+    </button>
+
+    <!-- 员工绑定按钮 -->
+    <button 
+      class="btn btn-secondary" 
+      bindtap="bindEmployee"
+      wx:if="{{isLoggedIn}}"
+    >
+      绑定员工号
+    </button>
+  </view>
+
+  <!-- 说明文字 -->
+  <view class="tips">
+    <text class="tip-text">• 静默登录已自动完成，无需手动操作</text>
+    <text class="tip-text">• 获取用户信息需要您的授权</text>
+    <text class="tip-text">• 绑定员工号可享受更多功能</text>
+    <text class="tip-text">• 无需手动退出登录，系统会自动管理登录状态</text>
+  </view>
+</view> 

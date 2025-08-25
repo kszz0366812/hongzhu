@@ -1,0 +1,52 @@
+code: sales_analysis
+name: 销售分析报表
+description: 包含销售数据、商品信息和区域统计的完整分析报表
+sheets:
+  - name: sales_summary
+    title: 销售汇总
+    dataSource: salesRecordService
+    columns:
+      - field: salesDate
+        title: 销售日期
+        type: date
+      - field: customerName
+        title: 客户名称
+        type: string
+      - field: productName
+        title: 商品名称
+        type: string
+      - field: quantity
+        title: 销售数量
+        type: number
+      - field: totalPrice
+        title: 销售金额
+        type: number
+  - name: product_analysis
+    title: 商品分析
+    dataSource: productService
+    columns:
+      - field: productCode
+        title: 商品编码
+        type: string
+      - field: productName
+        title: 商品名称
+        type: string
+      - field: salesCount
+        title: 销售次数
+        type: number
+      - field: totalAmount
+        title: 销售总额
+        type: number
+  - name: region_analysis
+    title: 区域分析
+    dataSource: regionService
+    columns:
+      - field: regionName
+        title: 区域名称
+        type: string
+      - field: salesAmount
+        title: 销售额
+        type: number
+      - field: growthRate
+        title: 增长率
+        type: percentage 

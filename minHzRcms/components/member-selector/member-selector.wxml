@@ -1,0 +1,102 @@
+<!-- components/member-selector/member-selector.wxml -->
+<view class="member-selector-overlay" wx:if="{{show}}" bindtap="onClose" catchtouchmove="stopPropagation">
+  <view class="member-selector-modal" catchtap="stopPropagation" catchtouchmove="stopPropagation">
+    <!-- 搜索框 -->
+    <view class="member-selector-search-section">
+      <view class="search-input-wrapper">
+        <text class="search-icon">🔍</text>
+        <input 
+          class="member-selector-search-input" 
+          placeholder="{{placeholder}}" 
+          value="{{searchText}}"
+          bindinput="onSearchInput"
+        />
+      </view>
+    </view>
+    
+    <!-- 已选择成员显示（多选模式）- 始终显示，固定高度 -->
+    <view class="selected-members-section" wx:if="{{multiple}}">
+      <view class="selected-members-header">
+        <text class="selected-members-title">已选择</text>
+        <text class="selected-members-count">({{tempSelectedMembers.length}})</text>
+      </view>
+      <scroll-view 
+        class="selected-members-scroll" 
+        scroll-y="true"
+        enhanced="true"
+        show-scrollbar="true"
+        bindtouchmove="onScrollTouchMove"
+      >
+        <view class="selected-members-list">
+          <view 
+            class="selected-member-item" 
+            wx:for="{{tempSelectedMembers}}" 
+            wx:key="id"
+            wx:for-item="member"
+          >
+            <image 
+              class="selected-member-avatar" 
+              src="/utils/images/default-avatar.png"
+              mode="aspectFill"
+            />
+            <text class="selected-member-name">{{member.name}}</text>
+            <view class="selected-member-remove" bindtap="onSelectMember" data-member="{{member}}">
+              <text class="remove-icon">×</text>
+            </view>
+          </view>
+          <!-- 空状态提示 -->
+          <view class="selected-member-empty" wx:if="{{tempSelectedMembers.length === 0}}">
+            <text class="empty-text">请选择成员</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 成员列表 -->
+    <view class="member-selector-list-wrapper">
+      <scroll-view 
+        class="member-selector-list" 
+        scroll-y="true" 
+        enhanced="true" 
+        show-scrollbar="true"
+        scroll-top="{{scrollTop}}"
+        bindtouchmove="onScrollTouchMove"
+        bindscroll="onScroll"
+      >
+        <view class="member-list-container">
+          <view 
+            class="member-selector-item {{multiple && memberSelectedStatus[member.id || member.employeeId || member.userId] ? 'selected' : ''}}"
+            wx:for="{{filteredMembers}}" 
+            wx:key="id"
+            wx:for-item="member"
+            bindtap="onSelectMember"
+            data-member="{{member}}"
+          >
+            <view class="member-selector-left">
+              <image 
+                class="member-selector-avatar" 
+                src="/utils/images/default-avatar.png"
+                mode="aspectFill"
+              />
+              <text class="member-selector-name">{{member.name}}</text>
+            </view>
+            <view class="member-selector-check" wx:if="{{multiple && memberSelectedStatus[member.id || member.employeeId || member.userId]}}">
+              <text class="check-icon">✓</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 空状态 -->
+    <view class="member-selector-empty" wx:if="{{showEmptyState && filteredMembers.length === 0}}">
+      <text class="member-selector-empty-text">{{emptyText}}</text>
+    </view>
+    
+    <!-- 底部按钮 -->
+    <view class="member-selector-footer">
+      <button class="member-selector-btn cancel" bindtap="onCancel">取消</button>
+      <button class="member-selector-btn confirm" wx:if="{{multiple}}" bindtap="onConfirm">{{confirmText}}</button>
+    </view>
+  </view>
+</view> 

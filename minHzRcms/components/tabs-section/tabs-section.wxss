@@ -1,0 +1,55 @@
+/* components/tabs-section/tabs-section.wxss */
+.tabs-section {
+  margin-bottom: 20rpx;
+}
+
+/* 一级标签 */
+.primary-tabs {
+  display: flex;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  margin-bottom: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 二级标签 */
+.secondary-tabs {
+  display: flex;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 单级标签（兼容原有功能） */
+.single-tabs {
+  display: flex;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  min-height: 60rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 12rpx;
+  font-size: 26rpx;
+  color: #666;
+  border-radius: 12rpx;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tab-item.active {
+  background-color: #007AFF;
+  color: #fff;
+  font-weight: 500;
+}
+
+.tab-item:active {
+  opacity: 0.8;
+} 

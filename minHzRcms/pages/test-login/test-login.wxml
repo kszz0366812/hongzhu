@@ -1,0 +1,84 @@
+<!--pages/test-login/test-login.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">微信登录测试</text>
+    <text class="subtitle">测试静默登录和员工绑定功能</text>
+  </view>
+
+  <!-- 登录状态显示 -->
+  <view class="status-section">
+    <view class="status-item">
+      <text class="label">登录状态:</text>
+      <text class="value {{isLoggedIn ? 'success' : 'error'}}">{{loginStatus}}</text>
+    </view>
+    <view class="status-item">
+      <text class="label">Token:</text>
+      <text class="value">{{token || '无'}}</text>
+    </view>
+    <view class="status-item">
+      <text class="label">OpenID:</text>
+      <text class="value">{{openid || '无'}}</text>
+    </view>
+    <view class="status-item">
+      <text class="label">新用户:</text>
+      <text class="value {{isNewUser ? 'warning' : 'success'}}">{{isNewUser ? '是' : '否'}}</text>
+    </view>
+  </view>
+
+  <!-- 用户信息显示 -->
+  <view class="user-section" wx:if="{{userInfo}}">
+    <view class="section-title">用户信息</view>
+    <view class="user-info">
+      <text class="info-item">真实姓名: {{userInfo.realName || '未设置'}}</text>
+      <text class="info-item">昵称: {{userInfo.nickName || userInfo.nickname || '未知'}}</text>
+      <text class="info-item">员工号: {{userInfo.employeeCode || '未绑定'}}</text>
+      <text class="info-item">头像: {{userInfo.avatarUrl || '无'}}</text>
+      <text class="info-item">性别: {{userInfo.gender === 1 ? '男' : userInfo.gender === 2 ? '女' : '未知'}}</text>
+      <text class="info-item">地区: {{userInfo.country || ''}} {{userInfo.province || ''}} {{userInfo.city || ''}}</text>
+    </view>
+  </view>
+
+  <!-- 测试结果显示 -->
+  <view class="test-result" wx:if="{{testResult}}">
+    <view class="section-title">测试结果</view>
+    <text class="result-text">{{testResult}}</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="button-section">
+    <button class="btn primary" bindtap="performLogin">执行静默登录</button>
+    <button class="btn secondary" bindtap="getUserProfile">获取用户信息</button>
+    <button class="btn secondary" bindtap="testEmployeeBinding">测试员工绑定</button>
+    <button class="btn secondary" bindtap="testBindingStatus">测试绑定状态</button>
+    <button class="btn secondary" bindtap="testNewUserFlow">测试新用户流程</button>
+    <button class="btn secondary" bindtap="runDebugCheck">环境调试</button>
+    <button class="btn secondary" bindtap="testConfig">测试配置</button>
+    <button class="btn secondary" bindtap="testMemberSelector">测试成员选择器</button>
+  </view>
+
+  <!-- 日志区域 -->
+  <view class="log-section">
+    <view class="log-header">
+      <text class="log-title">操作日志</text>
+      <button class="clear-btn" bindtap="clearLogs">清除</button>
+    </view>
+    <scroll-view class="log-content" scroll-y="true">
+      <view class="log-item" wx:for="{{logs}}" wx:key="index">
+        <text class="log-text">{{item}}</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 成员选择器测试 -->
+<member-selector 
+  show="{{showMemberSelector}}"
+  title="选择成员"
+  placeholder="搜索成员..."
+  members="{{testMembers}}"
+  multiple="{{true}}"
+  selectedIds="{{selectedMemberIds}}"
+  confirmText="确定"
+  bind:close="onMemberSelectorClose"
+  bind:select="onMemberSelectorSelect"
+/> 

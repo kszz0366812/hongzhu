@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.prod.SalesRecordMapper">
+
+    <!-- 区域销售额对比 -->
+    <select id="getRegionSalesComparison" resultType="com.insightflow.dto.RegionSalesComparisonDTO">
+        SELECT 
+            e.${regionLevel} as regionName,
+            SUM(s.total_price) as totalSales,
+            COUNT(DISTINCT s.customer_name) as customerCount,
+            COUNT(DISTINCT s.product_id) as productCount
+        FROM sales_record s
+        JOIN employee_info e ON s.customer_manager = e.name
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY e.${regionLevel}
+        ORDER BY totalSales DESC
+    </select>
+
+    <!-- 区域商品销售分布 -->
+    <select id="getRegionProductDistribution" resultType="com.insightflow.dto.RegionProductDistributionDTO">
+        SELECT 
+            e.${regionLevel} as regionName,
+            p.product_name as productName,
+            SUM(s.total_price) as salesAmount,
+            SUM(s.quantity) as salesQuantity,
+            COUNT(DISTINCT s.customer_name) as customerCount
+        FROM sales_record s
+        JOIN employee_info e ON s.customer_manager = e.name
+        JOIN product_info p ON s.product_id = p.id
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY e.${regionLevel}, p.product_name
+        ORDER BY salesAmount DESC
+    </select>
+
+    <!-- 区域商品销售统计 -->
+    <select id="getRegionProductSales" resultType="com.insightflow.dto.RegionProductSalesDTO">
+        SELECT 
+            e.${regionLevel} as regionName,
+            p.product_name as productName,
+            p.series as productSeries,
+            SUM(s.total_price) as totalSales,
+            SUM(s.quantity) as totalQuantity,
+            COUNT(DISTINCT s.customer_name) as customerCount,
+            AVG(s.unit_price) as averagePrice
+        FROM sales_record s
+        JOIN employee_info e ON s.customer_manager = e.name
+        JOIN product_info p ON s.product_id = p.id
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY e.${regionLevel}, p.product_name, p.series
+        ORDER BY totalSales DESC
+    </select>
+
+    <!-- 员工销售业绩排名 -->
+    <select id="getEmployeeSalesRank" resultType="com.insightflow.dto.EmployeeSalesRankDTO">
+        SELECT 
+            e.employee_code as employeeId,
+            e.name as employeeName,
+            RANK() OVER (ORDER BY SUM(s.total_price) DESC) as rank,
+            SUM(s.total_price) as totalSales,
+            COUNT(DISTINCT v.id) as visitCount,
+            COUNT(DISTINCT CASE WHEN v.is_deal = 1 THEN v.id END) as dealCount,
+            COUNT(DISTINCT CASE WHEN v.is_deal = 1 THEN v.id END) * 100.0 / COUNT(DISTINCT v.id) as conversionRate
+        FROM employee_info e
+        LEFT JOIN sales_record s ON e.name = s.customer_manager
+        LEFT JOIN visit_record v ON e.id = v.visitor_id
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY e.employee_code, e.name
+        ORDER BY totalSales DESC
+    </select>
+
+    <!-- 员工业绩详情 -->
+    <select id="getEmployeePerformance" resultType="com.insightflow.dto.EmployeePerformanceDTO">
+        SELECT 
+            e.employee_code as employeeId,
+            e.name as employeeName,
+            DATE_FORMAT(s.sales_date, 
+                CASE #{timeUnit}
+                    WHEN 'day' THEN '%Y-%m-%d'
+                    WHEN 'week' THEN '%Y-%u'
+                    WHEN 'month' THEN '%Y-%m'
+                    ELSE '%Y-%m'
+                END
+            ) as timePoint,
+            COUNT(DISTINCT v.id) as visitCount,
+            COUNT(DISTINCT CASE WHEN v.is_deal = 1 THEN v.id END) as dealCount,
+            SUM(s.total_price) as totalSales,
+            COUNT(DISTINCT CASE WHEN v.is_deal = 1 THEN v.id END) * 100.0 / COUNT(DISTINCT v.id) as conversionRate,
+            AVG(s.total_price) as averageOrderValue
+        FROM employee_info e
+        LEFT JOIN sales_record s ON e.name = s.customer_manager
+        LEFT JOIN visit_record v ON e.id = v.visitor_id
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY e.employee_code, e.name, timePoint
+        ORDER BY timePoint, totalSales DESC
+    </select>
+
+    <!-- 商品销售趋势 -->
+    <select id="getProductSalesTrend" resultType="com.insightflow.dto.ProductSalesTrendDTO">
+        SELECT 
+            p.id as productId,
+            p.product_name as productName,
+            DATE_FORMAT(s.sales_date, '%Y-%m-%d') as timePoint,
+            SUM(s.quantity) as salesQuantity,
+            SUM(s.total_price) as salesAmount,
+            COUNT(DISTINCT s.customer_name) as customerCount
+        FROM sales_record s
+        JOIN product_info p ON s.product_id = p.id
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY p.id, p.product_name, timePoint
+        ORDER BY timePoint, salesAmount DESC
+    </select>
+
+    <!-- 商品销售详情 -->
+    <select id="getProductSalesDetail" resultType="com.insightflow.dto.ProductSalesDetailDTO">
+        SELECT 
+            p.id as productId,
+            p.product_name as productName,
+            p.series as category,
+            SUM(s.quantity) as totalSalesQuantity,
+            SUM(s.total_price) as totalSalesAmount,
+            COUNT(DISTINCT s.customer_name) as customerCount,
+            AVG(s.unit_price) as averagePrice,
+            SUM(s.total_price) * 100.0 / (
+                SELECT SUM(total_price) 
+                FROM sales_record 
+                WHERE sales_date BETWEEN #{startTime} AND #{endTime}
+                AND deleted = 0
+            ) as marketShare
+        FROM sales_record s
+        JOIN product_info p ON s.product_id = p.id
+        WHERE s.sales_date BETWEEN #{startTime} AND #{endTime}
+        AND s.deleted = 0
+        GROUP BY p.id, p.product_name, p.series
+        ORDER BY totalSalesAmount DESC
+    </select>
+
+    <select id="selectRegionAnalysis" resultType="java.util.Map">
+        SELECT 
+            r.region_level1,
+            r.region_level2,
+            r.region_level3,
+            SUM(s.total_price) as total_sales,
+            COUNT(DISTINCT s.id) as order_count
+        FROM sales_record s
+        JOIN employee_info e ON s.salesperson = e.name
+        JOIN region_info r ON e.region_level1 = r.region_level1
+        <where>
+            <if test="params.startDate != null">
+                AND s.sales_date >= #{params.startDate}
+            </if>
+            <if test="params.endDate != null">
+                AND s.sales_date &lt;= #{params.endDate}
+            </if>
+        </where>
+        GROUP BY r.region_level1, r.region_level2, r.region_level3
+    </select>
+</mapper> 

@@ -1,0 +1,320 @@
+/* components/member-selector/member-selector.wxss */
+.member-selector-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.member-selector-modal {
+  width: 100%;
+  background-color: #f7f7f7;
+  border-radius: 20rpx 20rpx 0 0;
+  animation: modalSlideUp 0.3s ease-out;
+  max-height: 90vh; /* 设置最大高度为90vh */
+  height: 90vh; /* 设置固定高度 */
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* 搜索框 */
+.member-selector-search-section {
+  padding: 24rpx 32rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0; /* 防止搜索框被压缩 */
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+}
+
+.search-icon {
+  font-size: 24rpx;
+  color: #999;
+  margin-right: 12rpx;
+}
+
+.member-selector-search-input {
+  flex: 1;
+  height: 72rpx;
+  border: none;
+  font-size: 28rpx;
+  background-color: transparent;
+  color: #333;
+  padding: 0;
+}
+
+.member-selector-search-input::placeholder {
+  color: #999;
+}
+
+/* 已选择成员区域 - 固定高度 */
+.selected-members-section {
+  padding: 24rpx 32rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0; /* 防止已选区域被压缩 */
+  min-height: 120rpx; /* 固定最小高度 */
+  max-height: 200rpx; /* 允许显示2行，最大高度 */
+  overflow: hidden;
+}
+
+.selected-members-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.selected-members-title {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.selected-members-count {
+  font-size: 24rpx;
+  color: #007AFF;
+  margin-left: 8rpx;
+}
+
+.selected-members-scroll {
+  width: 100%;
+  white-space: nowrap;
+  max-height: 160rpx; /* 允许显示2行，最大高度 */
+  overflow-y: auto; /* 垂直滚动 */
+}
+
+.selected-members-list {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行 */
+  gap: 12rpx;
+  padding-bottom: 8rpx; /* 为滚动条留出空间 */
+  min-height: 60rpx;
+  align-items: flex-start; /* 改为flex-start以便多行对齐 */
+}
+
+.selected-member-item {
+  display: flex;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 12rpx 16rpx;
+  border-radius: 20rpx;
+  min-width: 160rpx;
+  max-width: 200rpx;
+  flex-shrink: 0;
+  height: 44rpx;
+}
+
+.selected-member-avatar {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.selected-member-name {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-member-remove {
+  width: 28rpx;
+  height: 28rpx;
+  background-color: #e8e8e8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: 8rpx;
+  flex-shrink: 0;
+}
+
+.selected-member-remove:active {
+  background-color: #d8d8d8;
+}
+
+.remove-icon {
+  font-size: 18rpx;
+  color: #999;
+  font-weight: bold;
+}
+
+/* 空状态提示 */
+.selected-member-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44rpx;
+  min-width: 200rpx;
+}
+
+.empty-text {
+  font-size: 24rpx;
+  color: #999;
+  font-style: italic;
+}
+
+/* 成员列表 */
+.member-selector-list-wrapper {
+  flex: 1;
+  background-color: #fff;
+  width: 100%;
+  min-height: 400rpx;
+}
+
+.member-selector-list {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+.member-list-container {
+  width: 100%;
+}
+
+.member-selector-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 110rpx;
+  padding: 0 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.member-selector-item:last-child {
+  border-bottom: none;
+}
+
+.member-selector-item:active {
+  background-color: #f8f8f8;
+}
+
+.member-selector-item.selected {
+  background-color: #f0f8ff;
+}
+
+.member-selector-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.member-selector-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.member-selector-name {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 400;
+  flex: 1;
+}
+
+.member-selector-check {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #007AFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.check-icon {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 空状态 */
+.member-selector-empty {
+  padding: 80rpx 32rpx;
+  text-align: center;
+  background-color: #fff;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-selector-empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 底部按钮 */
+.member-selector-footer {
+  display: flex;
+  gap: 16rpx;
+  padding: 24rpx 32rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #f0f0f0;
+  flex-shrink: 0; /* 防止底部按钮被压缩 */
+  position: relative;
+  z-index: 10;
+}
+
+.member-selector-btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 8rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.member-selector-btn.cancel {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.member-selector-btn.cancel:active {
+  background-color: #e8e8e8;
+}
+
+.member-selector-btn.confirm {
+  background-color: #007AFF;
+  color: #fff;
+}
+
+.member-selector-btn.confirm:active {
+  background-color: #0056cc;
+} 
+
+

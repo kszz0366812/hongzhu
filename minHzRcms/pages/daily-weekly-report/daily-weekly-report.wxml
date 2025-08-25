@@ -1,0 +1,36 @@
+<!-- pages/daily-weekly-report/daily-weekly-report.wxml -->
+<view class="container">
+  <!-- 头部区域：标签页和新建按钮 -->
+  <view class="header-section">
+    <!-- 标签页 -->
+    <view class="tab-bar">
+      <view class="tab {{activeTab === 'daily' ? 'active' : ''}}" bindtap="switchTab" data-tab="daily">日报</view>
+      <view class="tab {{activeTab === 'weekly' ? 'active' : ''}}" bindtap="switchTab" data-tab="weekly">周报</view>
+    </view>
+    
+    <!-- 新建报告按钮 -->
+    <view class="new-report-btn" bindtap="navigateToCreateReport">+ 新建报告</view>
+  </view>
+
+  <!-- 报告列表 -->
+  <view class="report-list">
+    <view class="report-card" wx:for="{{filteredReports}}" wx:key="id">
+      <view class="report-header">
+        <view class="report-date">{{item.date}}</view>
+        <view class="report-type">{{item.type === 'daily' ? '日报' : '周报'}}</view>
+      </view>
+      <view class="report-department">{{item.department}} - {{item.author}}</view>
+      <view class="report-summary">{{item.summary}}</view>
+      <view class="report-engagement">
+        <view class="engagement-item">
+          <text class="icon">👍</text>
+          <text class="count">{{item.likes}}</text>
+        </view>
+        <view class="engagement-item">
+          <text class="icon">💬</text>
+          <text class="count">{{item.comments}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

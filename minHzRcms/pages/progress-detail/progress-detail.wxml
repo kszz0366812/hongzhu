@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="progress-info-section">
+    <view class="progress-circle">
+      <text class="progress-value">{{progressItem.progress}}<text class="progress-unit">%</text></text>
+    </view>
+    <view class="progress-time">{{progressItem.time}}</view>
+  </view>
+  <view class="progress-content-card">
+    <view class="content-stripe"></view>
+    <view class="progress-content-main">
+      <view class="progress-content-label">进度内容</view>
+      <view class="progress-content-text">{{progressItem.content}}</view>
+    </view>
+  </view>
+  <view class="attachments-area">
+    <view class="attachments-title">附件</view>
+    <view wx:if="{{progressItem.attachments && progressItem.attachments.length > 0}}" class="attachments-list">
+      <block wx:for="{{progressItem.attachments}}" wx:key="index">
+        <view class="attachment-item">
+          <text class="attachment-name">{{item.name}}</text>
+          <text class="attachment-link" bindtap="onPreviewAttachment" data-url="{{item.url}}">预览</text>
+        </view>
+      </block>
+    </view>
+    <view wx:else class="no-attachment">暂无附件</view>
+  </view>
+</view> 

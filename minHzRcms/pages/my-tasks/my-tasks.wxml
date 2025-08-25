@@ -1,0 +1,53 @@
+<!-- pages/my-tasks/my-tasks.wxml -->
+<view class="container">
+  <!-- 任务列表 -->
+  <view class="task-list">
+    <view class="task-card" wx:for="{{filteredTasks}}" wx:key="id">
+      <view class="task-header">
+        <view class="task-title">{{item.title}}</view>
+        <view class="task-status {{item.status === '待处理' ? 'pending' : item.status === '进行中' ? 'ongoing' : 'completed'}}">
+          {{item.status}}
+        </view>
+      </view>
+      
+      <view class="task-info">
+        <view class="info-item">
+          <text class="label">项目：</text>
+          <text class="value">{{item.project}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">优先级：</text>
+          <text class="value priority-{{item.priority}}">{{item.priorityText}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">截止时间：</text>
+          <text class="value {{item.isOverdue ? 'overdue' : ''}}">{{item.deadline}}</text>
+        </view>
+      </view>
+      
+      <view class="task-description">
+        {{item.description}}
+      </view>
+      
+      <view class="task-actions">
+        <button class="action-btn {{item.status === '已完成' ? 'disabled' : ''}}" 
+                bindtap="updateTaskStatus" 
+                data-id="{{item.id}}" 
+                data-status="进行中" 
+                disabled="{{item.status === '已完成'}}">开始任务</button>
+        <button class="action-btn {{item.status === '已完成' ? 'disabled' : ''}}" 
+                bindtap="updateTaskStatus" 
+                data-id="{{item.id}}" 
+                data-status="已完成" 
+                disabled="{{item.status === '已完成'}}">完成任务</button>
+        <button class="action-btn" bindtap="viewTaskDetail" data-id="{{item.id}}">查看详情</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredTasks.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无任务</text>
+  </view>
+</view> 

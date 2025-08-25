@@ -1,0 +1,60 @@
+<!-- pages/create-report/create-report.wxml -->
+<view class="container">
+  <view class="form-section">
+    <view class="form-item">
+      <text class="label">报告类型 <text class="required">*</text></text>
+      <view class="radio-group">
+        <view class="radio {{reportForm.type === 'daily' ? 'active' : ''}}" bindtap="selectType" data-type="daily">
+          日报
+        </view>
+        <view class="radio {{reportForm.type === 'weekly' ? 'active' : ''}}" bindtap="selectType" data-type="weekly">
+          周报
+        </view>
+      </view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">报告标题 <text class="required">*</text></text>
+      <input class="input" placeholder="请输入报告标题" value="{{reportForm.title}}" bindinput="updateForm" data-field="title" />
+    </view>
+    
+
+    
+    <view class="form-item">
+      <text class="label">报告日期 <text class="required">*</text></text>
+      <picker class="picker" mode="date" value="{{reportForm.date}}" bindchange="updateForm" data-field="date">
+        <view class="picker-text {{reportForm.date ? '' : 'placeholder'}}">
+          {{reportForm.date || '请选择日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">工作内容 <text class="required">*</text></text>
+      <textarea class="textarea content-textarea" placeholder="请详细描述今日/本周的工作内容" value="{{reportForm.content}}" bindinput="updateForm" data-field="content"></textarea>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">遇到的问题</text>
+      <textarea class="textarea issues-textarea" placeholder="请描述工作中遇到的问题和困难" value="{{reportForm.issues}}" bindinput="updateForm" data-field="issues"></textarea>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">下一步计划</text>
+      <textarea class="textarea plan-textarea" placeholder="请描述下一步的工作计划" value="{{reportForm.plan}}" bindinput="updateForm" data-field="plan"></textarea>
+    </view>
+
+    <view class="form-item">
+      <text class="label">附件</text>
+      <attachment-uploader 
+        attachments="{{reportForm.attachments}}"
+        maxCount="{{10}}"
+        bind:change="onAttachmentChange"
+      />
+    </view>
+  </view>
+  
+  <view class="button-section">
+    <button class="submit-btn" bindtap="submitReport">{{editingReportId ? '更新报告' : '提交报告'}}</button>
+  </view>
+</view> 

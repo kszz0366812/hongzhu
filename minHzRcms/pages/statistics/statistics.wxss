@@ -1,0 +1,371 @@
+/* pages/statistics/statistics.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+/* 统计概览 */
+.stats-overview {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 24rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  border: 2rpx solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.stat-card:active {
+  background-color: #e3f2fd;
+  border-color: #007AFF;
+}
+
+.stat-icon {
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.stat-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #007AFF;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 报告统计 */
+.report-section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+  margin-top: 20rpx;
+}
+
+.chart-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.chart-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.chart-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.chart-label {
+  font-size: 26rpx;
+  color: #333;
+  min-width: 80rpx;
+}
+
+.chart-bar {
+  flex: 1;
+  height: 20rpx;
+  background-color: #f0f0f0;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.chart-fill {
+  height: 100%;
+  background: linear-gradient(to right, #007AFF, #4CAF50);
+  border-radius: 10rpx;
+  transition: width 0.3s ease;
+}
+
+.chart-value {
+  font-size: 24rpx;
+  color: #666;
+  min-width: 80rpx;
+  text-align: right;
+}
+
+/* 项目统计 */
+.project-section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.project-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  border: 2rpx solid #e9ecef;
+}
+
+.project-status {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-right: 20rpx;
+  min-width: 100rpx;
+  text-align: center;
+}
+
+.project-status.ongoing {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.project-status.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.project-status.pending {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.project-count {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.project-percentage {
+  font-size: 26rpx;
+  color: #007AFF;
+  font-weight: 500;
+}
+
+/* 任务统计 */
+.task-section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.task-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  border: 2rpx solid #e9ecef;
+}
+
+.task-status {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-right: 20rpx;
+  min-width: 100rpx;
+  text-align: center;
+}
+
+.task-status.ongoing {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.task-status.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.task-status.overdue {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.task-count {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.task-percentage {
+  font-size: 26rpx;
+  color: #007AFF;
+  font-weight: 500;
+}
+
+/* 趋势分析 */
+.trend-section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.trend-chart {
+  margin-top: 20rpx;
+}
+
+.trend-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.trend-content {
+  display: flex;
+  align-items: end;
+  gap: 8rpx;
+  height: 200rpx;
+  padding: 20rpx 0;
+}
+
+.trend-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.trend-date {
+  font-size: 20rpx;
+  color: #666;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.trend-bar {
+  width: 20rpx;
+  background: linear-gradient(to top, #007AFF, #4CAF50);
+  border-radius: 10rpx;
+  min-height: 10rpx;
+  transition: height 0.3s ease;
+}
+
+.trend-value {
+  font-size: 20rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 部门统计 */
+.department-section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.department-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.department-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  border: 2rpx solid #e9ecef;
+}
+
+.department-info {
+  flex: 1;
+}
+
+.department-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.department-desc {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.department-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+  min-width: 120rpx;
+}
+
+.progress-bar {
+  width: 100rpx;
+  height: 12rpx;
+  background-color: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #007AFF, #4CAF50);
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 22rpx;
+  color: #007AFF;
+  font-weight: 500;
+} 

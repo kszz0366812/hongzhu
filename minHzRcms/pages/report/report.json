@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "报告管理",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f5f5f5",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "stats-section": "/components/stats-section/stats-section",
+    "action-buttons": "/components/action-buttons/action-buttons",
+    "tabs-section": "/components/tabs-section/tabs-section",
+    "list-item-card": "/components/list-item-card/list-item-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

@@ -1,0 +1,36 @@
+/* components/stats-section/stats-section.wxss */
+.stats-section {
+  display: grid;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+/* 3列布局（报告统计） */
+.stats-section.grid3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* 4列布局（项目统计） */
+.stats-section.grid4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.stats-item {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.stats-number {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #007AFF;
+  margin-bottom: 8rpx;
+}
+
+.stats-label {
+  font-size: 22rpx;
+  color: #666;
+} 

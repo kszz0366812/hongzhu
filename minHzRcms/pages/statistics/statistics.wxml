@@ -1,0 +1,104 @@
+<!-- pages/statistics/statistics.wxml -->
+<view class="container">
+  <!-- 统计概览 -->
+  <view class="stats-overview">
+    <view class="section-title">总体概览</view>
+    <view class="stats-grid">
+      <view class="stat-card">
+        <view class="stat-icon">📊</view>
+        <view class="stat-number">{{overview.totalReports}}</view>
+        <view class="stat-label">总报告数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-icon">📁</view>
+        <view class="stat-number">{{overview.totalProjects}}</view>
+        <view class="stat-label">总项目数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-icon">📋</view>
+        <view class="stat-number">{{overview.totalTasks}}</view>
+        <view class="stat-label">总任务数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-icon">✅</view>
+        <view class="stat-number">{{overview.completedTasks}}</view>
+        <view class="stat-label">已完成任务</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 报告统计 -->
+  <view class="report-section">
+    <view class="section-title">报告统计</view>
+    <view class="chart-container">
+      <view class="chart-title">报告类型分布</view>
+      <view class="chart-content">
+        <view class="chart-item" wx:for="{{reportStats}}" wx:key="type">
+          <view class="chart-label">{{item.type}}</view>
+          <view class="chart-bar">
+            <view class="chart-fill" style="width: {{item.percentage}}%"></view>
+          </view>
+          <view class="chart-value">{{item.count}}份</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 项目统计 -->
+  <view class="project-section">
+    <view class="section-title">项目统计</view>
+    <view class="project-stats">
+      <view class="project-item" wx:for="{{projectStats}}" wx:key="status">
+        <view class="project-status {{item.status}}">{{item.statusText}}</view>
+        <view class="project-count">{{item.count}}个</view>
+        <view class="project-percentage">{{item.percentage}}%</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 任务统计 -->
+  <view class="task-section">
+    <view class="section-title">任务统计</view>
+    <view class="task-stats">
+      <view class="task-item" wx:for="{{taskStats}}" wx:key="status">
+        <view class="task-status {{item.status}}">{{item.statusText}}</view>
+        <view class="task-count">{{item.count}}个</view>
+        <view class="task-percentage">{{item.percentage}}%</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 趋势分析 -->
+  <view class="trend-section">
+    <view class="section-title">趋势分析</view>
+    <view class="trend-chart">
+      <view class="trend-title">近30天报告提交趋势</view>
+      <view class="trend-content">
+        <view class="trend-item" wx:for="{{trendData}}" wx:key="date">
+          <view class="trend-date">{{item.date}}</view>
+          <view class="trend-bar" style="height: {{item.height}}%"></view>
+          <view class="trend-value">{{item.count}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 部门统计 -->
+  <view class="department-section">
+    <view class="section-title">部门统计</view>
+    <view class="department-list">
+      <view class="department-item" wx:for="{{departmentStats}}" wx:key="name">
+        <view class="department-info">
+          <view class="department-name">{{item.name}}</view>
+          <view class="department-desc">{{item.reports}}份报告 | {{item.projects}}个项目</view>
+        </view>
+        <view class="department-progress">
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.progress}}%"></view>
+          </view>
+          <view class="progress-text">{{item.progress}}%</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

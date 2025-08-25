@@ -1,0 +1,43 @@
+<!-- pages/task/task.wxml -->
+<view class="container">
+  <!-- 任务统计 -->
+  <stats-section stats="{{statsData}}" layout="grid4" />
+  
+  <!-- 操作按钮 -->
+  <action-buttons buttons="{{actionButtons}}" bind:buttonTap="onActionButtonTap" />
+  
+  <!-- 二级标签页 -->
+  <tabs-section 
+    primaryTabs="{{primaryTabsData}}" 
+    activePrimaryTab="{{activePrimaryTab}}"
+    secondaryTabs="{{secondaryTabsData}}" 
+    activeSecondaryTab="{{activeSecondaryTab}}"
+    bind:primaryTabChange="onPrimaryTabChange"
+    bind:secondaryTabChange="onSecondaryTabChange"
+  />
+  
+  <!-- 任务列表 -->
+  <view class="task-list">
+    <list-item-card
+      wx:for="{{filteredTasks}}"
+      wx:key="id"
+      item="{{item}}"
+      bind:contentTap="navigateToTaskDetail"
+      bind:actionTap="onTaskActionTap"
+    />
+  </view>
+  
+  <!-- 空状态 -->
+  <empty-state show="{{filteredTasks.length === 0}}" text="暂无任务" />
+</view>
+
+<!-- 人员选择组件 -->
+<member-selector 
+  show="{{showAssignModal}}"
+  title="指派任务"
+  placeholder="搜索成员..."
+  members="{{assignMembers}}"
+  multiple="{{false}}"
+  bind:close="onAssignModalClose"
+  bind:select="onAssignMemberSelect"
+/>

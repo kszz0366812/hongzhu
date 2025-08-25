@@ -1,0 +1,25 @@
+<!--pages/report/report.wxml-->
+<view class="container">
+  <!-- 报告统计 -->
+  <stats-section stats="{{statsData}}" layout="grid3" />
+  
+  <!-- 操作按钮 -->
+  <action-buttons buttons="{{actionButtons}}" bind:buttonTap="onActionButtonTap" />
+  
+  <!-- 标签页 -->
+  <tabs-section tabs="{{tabsData}}" activeTab="{{activeTab}}" bind:tabChange="onTabChange" />
+  
+  <!-- 报告列表 -->
+  <view class="report-list">
+    <list-item-card
+      wx:for="{{filteredReports}}"
+      wx:key="id"
+      item="{{item}}"
+      bind:contentTap="viewReportDetail"
+      bind:actionTap="onReportActionTap"
+    />
+  </view>
+  
+  <!-- 空状态 -->
+  <empty-state show="{{filteredReports.length === 0}}" text="暂无报告" />
+</view>
