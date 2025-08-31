@@ -1,0 +1,303 @@
+/* pages/team-management/team-management.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+/* 统计区域 */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #007AFF;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 团队信息 */
+.team-info-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.team-info-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 16rpx;
+  min-height: 60rpx;
+  align-items: center;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #666;
+  min-width: 160rpx;
+  line-height: 1.4;
+}
+
+.value {
+  font-size: 26rpx;
+  color: #333;
+  flex: 1;
+  line-height: 1.4;
+}
+
+/* 成员管理 */
+.members-section {
+  margin-bottom: 30rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.add-member-btn {
+  background-color: #007AFF;
+  color: #fff;
+  border: none;
+  border-radius: 8rpx;
+  padding: 12rpx 24rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  min-height: 60rpx;
+  display: flex;
+  align-items: center;
+}
+
+.member-list {
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.member-card {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  min-height: 120rpx;
+}
+
+.member-card:last-child {
+  border-bottom: none;
+}
+
+.member-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background-color: #007AFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.avatar-text {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.member-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.member-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8rpx;
+  line-height: 1.4;
+}
+
+.member-role {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+  line-height: 1.4;
+}
+
+.member-status {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+.member-status.online {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.member-status.offline {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.member-actions {
+  display: flex;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  background-color: #f8f9fa;
+  color: #007AFF;
+  border: 2rpx solid #007AFF;
+  border-radius: 6rpx;
+  padding: 8rpx 16rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  min-height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn.delete {
+  color: #333;
+  border-color: #e0e0e0;
+  background-color: #fff;
+}
+
+.action-btn:active {
+  background-color: #007AFF;
+  color: #fff;
+}
+
+.action-btn.delete:active {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* 项目分配 */
+.projects-section {
+  margin-bottom: 30rpx;
+}
+
+.project-list {
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.project-item {
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  min-height: 120rpx;
+}
+
+.project-item:last-child {
+  border-bottom: none;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.project-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.project-status {
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.project-status.ongoing {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.project-status.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.project-members {
+  margin-bottom: 16rpx;
+}
+
+.project-members .label {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 12rpx;
+  line-height: 1.4;
+}
+
+.member-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: 8rpx;
+}
+
+.member-tag {
+  background-color: #e3f2fd;
+  color: #007AFF;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+  line-height: 1.4;
+}
+
+.project-actions {
+  display: flex;
+  justify-content: flex-end;
+} 

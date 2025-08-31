@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.template.TemplateMapper">
+    <select id="getTableList"  resultType="com.insightflow.dto.DbTableDTO">
+        SELECT table_name tableName,
+               table_comment  tableComment
+        FROM information_schema.tables
+        WHERE table_schema = DATABASE()
+          and table_name not like 'sys%'
+        <if test="comment != null">
+            and table_comment like CONCAT('%',#{comment},'%')
+        </if>
+        ORDER BY table_name;
+    </select>
+
+    <select id="getTable"  resultType="com.insightflow.dto.TableColumnDTO">
+        SELECT column_name columnName,
+               column_type columnType,
+               column_comment columnComment,
+               is_nullable isNullable,
+               column_default defaultValue
+        FROM information_schema.columns
+        WHERE table_schema = DATABASE()
+          and table_name = #{tableName}
+        ORDER BY ordinal_position;
+    </select>
+</mapper>

@@ -1,0 +1,68 @@
+<!-- pages/report-detail/report-detail.wxml -->
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+  
+  <!-- 表单区域 (read-only) -->
+  <view class="form-section" wx:if="{{!loading}}">
+    <view class="form-item">
+      <text class="label">报告类型</text>
+      <view class="value-text">{{reportInfo.type}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">报告标题</text>
+      <view class="value-text">{{reportInfo.title}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">作者</text>
+      <view class="value-text">{{reportInfo.author}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">创建时间</text>
+      <view class="value-text">{{reportInfo.createTime}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">状态</text>
+      <view class="value-text status-{{reportInfo.status === '已完成' ? 'completed' : reportInfo.status === '进行中' ? 'running' : 'pending'}}">{{reportInfo.status}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">报告摘要</text>
+      <view class="value-text description-text">{{reportInfo.summary || '暂无摘要'}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">工作内容</text>
+      <view class="value-text description-text">{{reportInfo.workContent || '暂无工作内容'}}</view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">下一步计划</text>
+      <view class="value-text description-text">{{reportInfo.nextPlan || '暂无计划'}}</view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">附件</text>
+      <view class="attachment-section">
+        <view class="attachment-list" wx:if="{{reportInfo.attachments && reportInfo.attachments.length > 0}}">
+          <view class="attachment-item" wx:for="{{reportInfo.attachments}}" wx:key="index">
+            <view class="attachment-info">
+              <view class="attachment-name">{{item.name}}</view>
+              <view class="attachment-size">{{item.size}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="no-attachments" wx:else>
+          <text class="no-attachments-text">暂无附件</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

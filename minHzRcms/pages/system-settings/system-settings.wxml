@@ -1,0 +1,113 @@
+<!-- pages/system-settings/system-settings.wxml -->
+<view class="container">
+  <!-- 通知设置 -->
+  <view class="settings-section">
+    <view class="section-title">通知设置</view>
+    <view class="settings-list">
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">消息通知</text>
+          <text class="setting-desc">接收新消息提醒</text>
+        </view>
+        <switch class="setting-switch" checked="{{settings.messageNotification}}" bindchange="toggleSetting" data-key="messageNotification" />
+      </view>
+      
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">任务提醒</text>
+          <text class="setting-desc">任务截止时间提醒</text>
+        </view>
+        <switch class="setting-switch" checked="{{settings.taskReminder}}" bindchange="toggleSetting" data-key="taskReminder" />
+      </view>
+      
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">报告提醒</text>
+          <text class="setting-desc">日报/周报提交提醒</text>
+        </view>
+        <switch class="setting-switch" checked="{{settings.reportReminder}}" bindchange="toggleSetting" data-key="reportReminder" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 隐私设置 -->
+  <view class="settings-section">
+    <view class="section-title">隐私设置</view>
+    <view class="settings-list">
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">数据同步</text>
+          <text class="setting-desc">自动同步数据到云端</text>
+        </view>
+        <switch class="setting-switch" checked="{{settings.dataSync}}" bindchange="toggleSetting" data-key="dataSync" />
+      </view>
+      
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">位置信息</text>
+          <text class="setting-desc">允许获取位置信息</text>
+        </view>
+        <switch class="setting-switch" checked="{{settings.locationAccess}}" bindchange="toggleSetting" data-key="locationAccess" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 显示设置 -->
+  <view class="settings-section">
+    <view class="section-title">显示设置</view>
+    <view class="settings-list">
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">深色模式</text>
+          <text class="setting-desc">使用深色主题</text>
+        </view>
+        <switch class="setting-switch" checked="{{settings.darkMode}}" bindchange="toggleSetting" data-key="darkMode" />
+      </view>
+      
+      <view class="setting-item">
+        <view class="setting-info">
+          <text class="setting-label">字体大小</text>
+          <text class="setting-desc">调整应用字体大小</text>
+        </view>
+        <picker class="font-picker" range="{{fontSizes}}" value="{{fontSizeIndex}}" bindchange="changeFontSize">
+          <view class="picker-text">{{fontSizes[fontSizeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 账户设置 -->
+  <view class="settings-section">
+    <view class="section-title">账户设置</view>
+    <view class="settings-list">
+      <view class="setting-item" bindtap="changePassword">
+        <view class="setting-info">
+          <text class="setting-label">修改密码</text>
+          <text class="setting-desc">更改登录密码</text>
+        </view>
+        <view class="setting-arrow">></view>
+      </view>
+      
+      <view class="setting-item" bindtap="clearCache">
+        <view class="setting-info">
+          <text class="setting-label">清除缓存</text>
+          <text class="setting-desc">清理应用缓存数据</text>
+        </view>
+        <view class="setting-arrow">></view>
+      </view>
+      
+      <view class="setting-item" bindtap="aboutApp">
+        <view class="setting-info">
+          <text class="setting-label">关于应用</text>
+          <text class="setting-desc">版本信息和帮助</text>
+        </view>
+        <view class="setting-arrow">></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+</view> 

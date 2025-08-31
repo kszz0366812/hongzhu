@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.customer.VisitRecordMapper">
+    
+    <insert id="insertOrUpdate" parameterType="com.insightflow.entity.customer.VisitRecord">
+        INSERT INTO visit_record (
+            id, visitor_id, visit_time, terminal_id, is_deal, create_time, update_time, deleted
+        ) VALUES (
+            #{entity.id}, #{entity.visitorId}, #{entity.visitTime}, #{entity.terminalId}, #{entity.isDeal}, now(), now(), 0
+        )
+        ON DUPLICATE KEY UPDATE
+            visitor_id = VALUES(visitor_id),
+            visit_time = VALUES(visit_time),
+            terminal_id = VALUES(terminal_id),
+            is_deal = VALUES(is_deal),
+            update_time = now(),
+            deleted = 0
+    </insert>
+    
+    <!-- 员工拜访达成率统计 -->
+    <select id="getEmployeeVisitRate" resultType="com.insightflow.dto.EmployeeVisitRateDTO">
+        SELECT 
+            e.employee_code as employeeId,
+            e.name as employeeName,
+            COUNT(v.id) as totalVisits,
+            COUNT(CASE WHEN v.is_deal = 1 THEN v.id END) as successfulVisits,
+            COUNT(CASE WHEN v.is_deal = 1 THEN v.id END) * 100.0 / COUNT(v.id) as successRate,
+            COUNT(DISTINCT v.terminal_id) as uniqueTerminals,
+            COUNT(DISTINCT CASE WHEN v.is_deal = 1 THEN v.terminal_id END) as successfulTerminals
+        FROM employee_info e
+        LEFT JOIN visit_record v ON e.id = v.visitor_id
+        WHERE v.visit_time BETWEEN #{startTime} AND #{endTime}
+        AND v.deleted = 0
+        GROUP BY e.employee_code, e.name
+        ORDER BY successRate DESC
+    </select>
+</mapper> 

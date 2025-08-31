@@ -1,0 +1,95 @@
+<!-- pages/team-management/team-management.wxml -->
+<view class="container">
+  <!-- 团队成员列表 -->
+  <view class="team-list">
+    <!-- 团队统计 -->
+    <view class="stats-section">
+      <view class="stat-item">
+        <view class="stat-number">{{stats.totalMembers}}</view>
+        <view class="stat-label">团队成员</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-number">{{stats.activeProjects}}</view>
+        <view class="stat-label">进行中项目</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-number">{{stats.completedTasks}}</view>
+        <view class="stat-label">完成任务</view>
+      </view>
+    </view>
+
+    <!-- 团队信息 -->
+    <view class="team-info-section">
+      <view class="section-title">团队信息</view>
+      <view class="team-info-card">
+        <view class="info-item">
+          <text class="label">团队名称：</text>
+          <text class="value">{{teamInfo.name}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">团队负责人：</text>
+          <text class="value">{{teamInfo.leader}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">创建时间：</text>
+          <text class="value">{{teamInfo.createTime}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">团队描述：</text>
+          <text class="value">{{teamInfo.description}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成员管理 -->
+    <view class="members-section">
+      <view class="section-header">
+        <text class="section-title">成员管理</text>
+        <button class="add-member-btn" bindtap="addMember">+ 添加成员</button>
+      </view>
+      
+      <view class="member-list">
+        <view class="member-card" wx:for="{{members}}" wx:key="id">
+          <view class="member-avatar">
+            <text class="avatar-text">{{item.name.charAt(0)}}</text>
+          </view>
+          <view class="member-info">
+            <view class="member-name">{{item.name}}</view>
+            <view class="member-role">{{item.role}}</view>
+            <view class="member-status {{item.status === '在线' ? 'online' : 'offline'}}">
+              {{item.status}}
+            </view>
+          </view>
+          <view class="member-actions">
+            <button class="action-btn" bindtap="editMember" data-id="{{item.id}}">编辑</button>
+            <button class="action-btn delete" bindtap="removeMember" data-id="{{item.id}}" wx:if="{{item.id !== 1}}">移除</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 项目分配 -->
+    <view class="projects-section">
+      <view class="section-title">项目分配</view>
+      <view class="project-list">
+        <view class="project-item" wx:for="{{projects}}" wx:key="id">
+          <view class="project-header">
+            <view class="project-name">{{item.name}}</view>
+            <view class="project-status {{item.status === '进行中' ? 'ongoing' : 'completed'}}">
+              {{item.status}}
+            </view>
+          </view>
+          <view class="project-members">
+            <text class="label">负责成员：</text>
+            <view class="member-tags">
+              <text class="member-tag" wx:for="{{item.members}}" wx:key="*this" wx:for-item="member">{{member}}</text>
+            </view>
+          </view>
+          <view class="project-actions">
+            <button class="action-btn" bindtap="assignProject" data-id="{{item.id}}">分配成员</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

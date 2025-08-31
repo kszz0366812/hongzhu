@@ -1,0 +1,41 @@
+<!-- components/tabs-section/tabs-section.wxml -->
+<view class="tabs-section">
+  <!-- 一级标签 -->
+  <view class="primary-tabs" wx:if="{{primaryTabs && primaryTabs.length > 0}}">
+    <view
+      class="tab-item {{item.key === activePrimaryTab ? 'active' : ''}}"
+      wx:for="{{primaryTabs}}"
+      wx:key="key"
+      bindtap="onPrimaryTabTap"
+      data-key="{{item.key}}"
+    >
+      {{item.label}}
+    </view>
+  </view>
+  
+  <!-- 二级标签 -->
+  <view class="secondary-tabs" wx:if="{{secondaryTabs && secondaryTabs.length > 0}}">
+    <view
+      class="tab-item {{item.key === activeSecondaryTab ? 'active' : ''}}"
+      wx:for="{{secondaryTabs}}"
+      wx:key="key"
+      bindtap="onSecondaryTabTap"
+      data-key="{{item.key}}"
+    >
+      {{item.label}}
+    </view>
+  </view>
+  
+  <!-- 单级标签 -->
+  <view class="single-tabs" wx:if="{{tabs && tabs.length > 0}}">
+    <view
+      class="tab-item {{item.key === activeTab ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      bindtap="onTabTap"
+      data-key="{{item.key}}"
+    >
+      {{item.label}}
+    </view>
+  </view>
+</view> 

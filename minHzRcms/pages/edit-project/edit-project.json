@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "编辑项目",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "attachment-uploader": "/components/attachment-uploader/attachment-uploader",
+    "member-selector": "/components/member-selector/member-selector",
+    "selector-field": "/components/selector-field/selector-field"
+  }
+} 
