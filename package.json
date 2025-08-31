@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "element-plus": "^2.10.0",
+    "luckyexcel": "^1.0.1",
+    "luckysheet": "^2.1.13",
+    "xlsx": "^0.18.5"
+  }
+}
