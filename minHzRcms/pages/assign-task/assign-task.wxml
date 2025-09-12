@@ -1,0 +1,78 @@
+<!-- pages/assign-task/assign-task.wxml -->
+<view class="container">
+  <!-- 表单区域 -->
+  <view class="form-section">
+    <view class="form-item">
+      <text class="label">任务标题 <text class="required">*</text></text>
+      <input class="input" placeholder="请输入任务标题" value="{{taskForm.title}}" bindinput="updateForm" data-field="title" />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">所属项目 <text class="required">*</text></text>
+      <picker class="picker" range="{{projects}}" range-key="name" value="{{taskForm.projectIndex}}" bindchange="updateForm" data-field="projectIndex">
+        <view class="picker-text {{taskForm.projectIndex !== undefined ? '' : 'placeholder'}}">
+          {{projects[taskForm.projectIndex].name || '请选择项目'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">指派给 <text class="required">*</text></text>
+      <picker class="picker" range="{{teamMembers}}" range-key="name" value="{{taskForm.assigneeIndex}}" bindchange="updateForm" data-field="assigneeIndex">
+        <view class="picker-text {{taskForm.assigneeIndex !== undefined ? '' : 'placeholder'}}">
+          {{teamMembers[taskForm.assigneeIndex].name || '请选择负责人'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">优先级 <text class="required">*</text></text>
+      <picker class="picker" range="{{priorities}}" value="{{taskForm.priorityIndex}}" bindchange="updateForm" data-field="priorityIndex">
+        <view class="picker-text">
+          {{priorities[taskForm.priorityIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">截止时间 <text class="required">*</text></text>
+      <picker class="picker" mode="date" value="{{taskForm.deadline}}" bindchange="updateForm" data-field="deadline">
+        <view class="picker-text {{taskForm.deadline ? '' : 'placeholder'}}">
+          {{taskForm.deadline || '请选择截止时间'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">任务描述</text>
+      <textarea class="textarea" placeholder="请输入任务描述" value="{{taskForm.description}}" bindinput="updateForm" data-field="description"></textarea>
+    </view>
+  </view>
+  
+  <view class="button-section">
+    <button class="submit-btn" bindtap="submitTask">{{editingTaskId ? '更新任务' : '指派任务'}}</button>
+  </view>
+  
+  <!-- 项目列表预览 -->
+  <view class="preview-section" wx:if="{{projects.length > 0}}">
+    <view class="section-title">可选项目</view>
+    <view class="project-list">
+      <view class="project-item" wx:for="{{projects}}" wx:key="id">
+        <view class="project-name">{{item.name}}</view>
+        <view class="project-desc">{{item.description || '暂无描述'}}</view>
+        <view class="project-dates">{{item.startDate}} - {{item.endDate}}</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 团队成员预览 -->
+  <view class="preview-section" wx:if="{{teamMembers.length > 0}}">
+    <view class="section-title">团队成员</view>
+    <view class="member-list">
+      <view class="member-item" wx:for="{{teamMembers}}" wx:key="id">
+        <view class="member-avatar">{{item.name.charAt(0)}}</view>
+        <view class="member-name">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view> 

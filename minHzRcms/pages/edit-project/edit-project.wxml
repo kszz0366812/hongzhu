@@ -1,0 +1,155 @@
+<!-- pages/edit-project/edit-project.wxml -->
+<view class="container">
+  <!-- 表单区域 -->
+  <view class="form-section">
+    <view class="form-item">
+      <text class="label">项目名称 <text class="required">*</text></text>
+      <input class="input" value="{{projectForm.name}}" bindinput="updateForm" data-field="name" placeholder="请输入项目名称"/>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">项目描述</text>
+      <textarea class="textarea" value="{{projectForm.description}}" bindinput="updateForm" data-field="description" placeholder="请输入项目描述"/>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">开始日期 <text class="required">*</text></text>
+      <picker class="picker" mode="date" value="{{projectForm.startDate}}" bindchange="updatePicker" data-field="startDate">
+        <view class="picker-text {{projectForm.startDate ? '' : 'placeholder'}}">
+          {{projectForm.startDate || '请选择开始日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">结束日期 <text class="required">*</text></text>
+      <picker class="picker" mode="date" value="{{projectForm.endDate}}" bindchange="updatePicker" data-field="endDate">
+        <view class="picker-text {{projectForm.endDate ? '' : 'placeholder'}}">
+          {{projectForm.endDate || '请选择结束日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">项目负责人</text>
+      <selector-field 
+        placeholder="请选择项目负责人"
+        selectedText="{{projectForm.selectedManager ? projectForm.selectedManager.name : ''}}"
+        bind:tap="selectManager"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="label">项目等级</text>
+      <picker class="picker" range="{{levels}}" 
+              value="{{projectForm.levelIndex}}"
+              data-field="levelIndex"
+              bindchange="updatePicker">
+        <view class="picker-text">
+          {{levels[projectForm.levelIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">优先级</text>
+      <picker class="picker" range="{{priorities}}" 
+              value="{{projectForm.priorityIndex}}"
+              data-field="priorityIndex"
+              bindchange="updatePicker">
+        <view class="picker-text">
+          {{priorities[projectForm.priorityIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">项目状态</text>
+      <picker class="picker" range="{{statuses}}" 
+              value="{{projectForm.statusIndex}}"
+              data-field="statusIndex"
+              bindchange="updatePicker">
+        <view class="picker-text">
+          {{statuses[projectForm.statusIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">项目成员</text>
+      <view class="members-section">
+        <!-- 已邀请的成员列表 -->
+        <view class="invited-members" wx:if="{{projectForm.invitedMembers.length > 0}}">
+          <view class="member-item" wx:for="{{projectForm.invitedMembers}}" wx:key="id">
+            <view class="member-avatar">
+              <image 
+                wx:if="{{item.avatar}}" 
+                src="{{item.avatar}}" 
+                class="avatar-img"
+                mode="aspectFill"
+              />
+              <image 
+                wx:else 
+                src="/utils/images/default-avatar.png" 
+                class="avatar-img"
+                mode="aspectFill"
+              />
+            </view>
+            <view class="member-info">
+              <text class="member-name">{{item.name}}</text>
+              <text class="member-role">{{item.role}}</text>
+            </view>
+            <view class="remove-member" bindtap="removeMember" data-id="{{item.id}}"></view>
+          </view>
+        </view>
+        
+        <!-- 邀请成员按钮 -->
+        <view class="invite-section">
+          <button class="invite-btn" bindtap="inviteMembers">
+            <text class="invite-icon">👥</text>
+            <text class="invite-text">邀请成员</text>
+          </button>
+        </view>
+      </view>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">附件</text>
+      <attachment-uploader 
+        attachments="{{projectForm.attachments}}"
+        maxCount="{{10}}"
+        bind:change="onAttachmentChange"
+      />
+    </view>
+  </view>
+  
+  <view class="button-section">
+    <button class="submit-btn" bindtap="saveProject">保存</button>
+  </view>
+</view>
+
+<!-- 人员选择组件 -->
+<member-selector 
+  show="{{showInviteModal}}"
+  title="邀请成员"
+  placeholder="搜索成员..."
+  members="{{availableMembers}}"
+  multiple="{{true}}"
+  selectedIds="{{invitedMemberIds}}"
+  confirmText="邀请"
+  bind:close="onInviteModalClose"
+  bind:select="onInviteMemberSelect"
+/>
+
+<!-- 负责人选择组件 -->
+<member-selector 
+  show="{{showManagerModal}}"
+  title="选择项目负责人"
+  placeholder="搜索负责人..."
+  members="{{teamMembers}}"
+  multiple="{{false}}"
+  bind:close="onManagerModalClose"
+  bind:select="onManagerSelect"
+/>
+
+ 

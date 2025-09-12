@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.customer.TerminalInfoMapper">
+    
+    <insert id="insertOrUpdate" parameterType="com.insightflow.entity.customer.TerminalInfo">
+        INSERT INTO terminal_info (
+            terminal_code, terminal_name, terminal_type, tags,
+            customer_manager, is_scheduled, create_time, update_time
+        ) VALUES (
+            #{entity.terminalCode}, #{entity.terminalName}, #{entity.terminalType},
+            #{entity.tags}, #{entity.customerManager}, #{entity.isScheduled},
+            NOW(), NOW()
+        ) ON DUPLICATE KEY UPDATE
+            terminal_name = #{entity.terminalName},
+            terminal_type = #{entity.terminalType},
+            tags = #{entity.tags},
+            customer_manager = #{entity.customerManager},
+            is_scheduled = #{entity.isScheduled},
+            update_time = NOW()
+    </insert>
+    
+</mapper> 

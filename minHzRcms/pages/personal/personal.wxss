@@ -1,0 +1,230 @@
+/* pages/personal/personal.wxss */
+
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+/* 用户信息区域 */
+.user-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.user-avatar-container {
+  position: relative;
+  margin-right: 30rpx;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+}
+
+.avatar-status {
+  position: absolute;
+  bottom: 8rpx;
+  right: 8rpx;
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 12rpx;
+  border: 3rpx solid white;
+}
+
+.avatar-status.online {
+  background-color: #52c41a;
+}
+
+.avatar-status.offline {
+  background-color: #ff4d4f;
+}
+
+.user-details {
+  flex: 1;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+  display: block;
+  margin-bottom: 8rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.user-role {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10rpx);
+}
+
+.status-dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 4rpx;
+  margin-right: 8rpx;
+}
+
+.status-badge.online .status-dot {
+  background-color: #52c41a;
+}
+
+.status-badge.offline .status-dot {
+  background-color: #ff4d4f;
+}
+
+.status-text {
+  font-size: 24rpx;
+  color: white;
+  font-weight: 500;
+}
+
+.user-actions {
+  display: flex;
+  gap: 20rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.action-btn {
+  flex: 1;
+  height: 80rpx;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10rpx);
+}
+
+.secondary-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.secondary-btn:active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(2rpx);
+}
+
+.btn-icon {
+  font-size: 32rpx;
+}
+
+.btn-text {
+  font-size: 28rpx;
+}
+
+/* 菜单区域 */
+.menu-section {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 40rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background-color: #f8f8f8;
+}
+
+.menu-icon {
+  font-size: 40rpx;
+  margin-right: 30rpx;
+  width: 40rpx;
+  text-align: center;
+}
+
+.menu-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: #999;
+  font-weight: bold;
+}
+
+/* 登录状态提示 */
+.login-tip {
+  text-align: center;
+  padding: 40rpx;
+  background: white;
+  border-radius: 16rpx;
+  margin-top: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.tip-text {
+  font-size: 28rpx;
+  color: #999;
+}

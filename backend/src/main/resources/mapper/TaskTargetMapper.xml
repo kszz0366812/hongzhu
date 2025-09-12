@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.task.TaskTargetMapper">
+
+    
+    <select id="getTaskTargetList" resultType="com.insightflow.dto.TaskTargetDTO">
+        SELECT 
+            tt.*,
+            ei.name as executor_name,
+            CASE 
+                WHEN tt.target_amount > 0 THEN ROUND(tt.achieved_amount / tt.target_amount * 100, 2)
+                ELSE 0 
+            END as achievement_rate
+        FROM task_target tt
+        LEFT JOIN employee_info ei ON tt.executor_id = ei.id
+        WHERE tt.executor_id = #{executorId}
+        AND tt.task_name like concat('%', #{taskName}, '%')
+        AND tt.deleted = 0
+        ORDER BY tt.start_time DESC
+    </select>
+    
+    <select id="getTaskTargetAchievement" resultType="com.insightflow.dto.TaskTargetDTO">
+        SELECT 
+            tt.*,
+            ei.name as executor_name,
+            COUNT(vr.id) as visit_count,
+            COUNT(DISTINCT vr.terminal_id) as wholesaler_count
+        FROM task_target tt
+        LEFT JOIN employee_info ei ON tt.executor_id = ei.id
+        LEFT JOIN visit_record vr ON tt.executor_id = vr.visitor_id
+            AND DATE(vr.visit_time) BETWEEN TT.start_time AND TT.end_time
+        WHERE tt.executor_id = #{executorId}
+        AND tt.task_name LIKE CONCAT('%', #{taskName}, '%')
+        AND tt.deleted = 0
+        GROUP BY tt.id
+        ORDER BY tt.id DESC
+    </select>
+    
+    <update id="updateAchievedAmount">
+        UPDATE task_target
+        SET achieved_amount = #{achievedAmount},
+            update_time = NOW()
+        WHERE id = #{id}
+        AND deleted = 0
+    </update>
+</mapper> 

@@ -1,0 +1,125 @@
+<!-- pages/task-detail/task-detail.wxml -->
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <!-- 任务详情内容 -->
+  <view class="task-detail" wx:else>
+    <!-- 任务基本信息 -->
+    <view class="task-header">
+      <view class="task-title">{{task.title}}</view>
+      <view class="task-meta">
+        <view class="task-status status-{{task.status === '进行中' ? 'running' : task.status === '已完成' ? 'completed' : 'pending'}}">
+          {{task.status}}
+        </view>
+        <view class="task-priority priority-{{task.priority}}">
+          {{task.priorityText}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 任务详细信息 -->
+    <view class="task-info">
+      <view class="info-item">
+        <text class="label">所属项目</text>
+        <text class="value">{{task.project}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">负责人</text>
+        <text class="value">{{task.assignee}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">指派者</text>
+        <text class="value">{{task.assigner}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">截止时间</text>
+        <text class="value {{task.isOverdue ? 'overdue' : ''}}">{{task.deadline}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">创建时间</text>
+        <text class="value">{{task.createTime}}</text>
+      </view>
+      
+      <view class="info-item" wx:if="{{task.updateTime}}">
+        <text class="label">更新时间</text>
+        <text class="value">{{task.updateTime}}</text>
+      </view>
+    </view>
+
+    <!-- 任务描述 -->
+    <view class="task-description" wx:if="{{task.description}}">
+      <view class="description-title">任务描述</view>
+      <view class="description-content">{{task.description}}</view>
+    </view>
+
+    <!-- 附件列表 -->
+    <view class="attachments-section">
+      <view class="section-title">附件</view>
+      <view wx:if="{{task.attachments && task.attachments.length > 0}}" class="attachment-list">
+        <view class="attachment-item" wx:for="{{task.attachments}}" wx:key="index">
+          <view class="attachment-icon">📎</view>
+          <view class="attachment-info">
+            <view class="attachment-name">{{item.name}}</view>
+            <view class="attachment-size">{{item.size}}</view>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="no-attachments">
+        <view class="no-attachments-icon">📄</view>
+        <view class="no-attachments-text">暂无附件</view>
+      </view>
+    </view>
+
+
+  </view>
+
+  <!-- 状态更新弹窗 -->
+  <view class="modal-overlay" wx:if="{{showStatusModal}}" bindtap="closeStatusModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">更新任务状态</text>
+        <text class="modal-close" bindtap="closeStatusModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="status-options">
+          <view class="status-option {{selectedStatus === status ? 'selected' : ''}}" 
+                wx:for="{{availableStatuses}}" 
+                wx:key="index" 
+                wx:for-item="status"
+                data-status="{{status}}"
+                bindtap="selectStatus">
+            {{status}}
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-outline" bindtap="closeStatusModal">取消</button>
+        <button class="btn btn-primary" bindtap="confirmStatusUpdate">确认</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 指派弹窗 -->
+  <view class="modal-overlay" wx:if="{{showAssignModal}}" bindtap="closeAssignModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">重新指派任务</text>
+        <text class="modal-close" bindtap="closeAssignModal">×</text>
+      </view>
+      <view class="modal-body">
+        <member-selector 
+          members="{{assignMembers}}"
+          bind:memberSelect="onAssignMemberSelect"
+          bind:close="closeAssignModal">
+        </member-selector>
+      </view>
+    </view>
+  </view>
+</view>

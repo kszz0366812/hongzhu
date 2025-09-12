@@ -1,0 +1,52 @@
+### 终端管理接口测试
+
+### 1. 分页查询终端列表
+GET http://localhost:8080/api/terminal/page?current=1&size=10
+Content-Type: application/json
+
+### 2. 分页查询终端列表（带搜索条件）
+GET http://localhost:8080/api/terminal/page?current=1&size=10&terminalName=北京&terminalType=零售&customerManager=张三&isScheduled=1
+Content-Type: application/json
+
+### 3. 获取终端列表（不分页）
+GET http://localhost:8080/api/terminal/getlist
+Content-Type: application/json
+
+### 4. 获取终端列表（带搜索条件）
+GET http://localhost:8080/api/terminal/getlist?terminal_name=北京&terminal_type=零售&customer_manager=张三
+Content-Type: application/json
+
+### 5. 获取终端详情
+GET http://localhost:8080/api/terminal/getById/1
+Content-Type: application/json
+
+### 6. 新增终端
+POST http://localhost:8080/api/terminal/save
+Content-Type: application/json
+
+{
+  "terminalCode": "T006",
+  "terminalName": "成都锦江终端",
+  "terminalType": "零售终端",
+  "tags": "新客户,潜力客户",
+  "customerManager": "孙八",
+  "isScheduled": 0
+}
+
+### 7. 修改终端
+POST http://localhost:8080/api/terminal/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "terminalCode": "T001",
+  "terminalName": "北京朝阳终端（已更新）",
+  "terminalType": "零售终端",
+  "tags": "重点客户,高价值,VIP",
+  "customerManager": "张三",
+  "isScheduled": 1
+}
+
+### 8. 删除终端
+DELETE http://localhost:8080/api/terminal/6
+Content-Type: application/json 

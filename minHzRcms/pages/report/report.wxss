@@ -1,0 +1,23 @@
+/* pages/report/report.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+.report-list {
+  margin-top: 20rpx;
+}
+
+/* 确保标签页组件正确显示 */
+.tabs-section {
+  margin: 20rpx 0;
+  background-color: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  display: block !important;
+  visibility: visible !important;
+  padding: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+

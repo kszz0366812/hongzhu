@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.report.ReportMapper">
+
+    <!-- 分页查询报告列表（包含用户名信息） -->
+    <select id="selectReportVoPage" resultType="com.insightflow.vo.ReportVo">
+        SELECT 
+            r.*,
+            e.name as authorName
+        FROM sys_report r
+        LEFT JOIN employee_info e ON r.author_id = e.id
+        <where>
+            <if test="type != null and type != ''">
+                AND r.type = #{type}
+            </if>
+            <if test="department != null and department != ''">
+                AND r.department = #{department}
+            </if>
+        </where>
+        ORDER BY r.create_time DESC
+    </select>
+
+</mapper> 

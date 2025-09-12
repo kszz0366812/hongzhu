@@ -1,0 +1,20 @@
+# IDE相关文件
+.idea/
+.vscode/
+
+# 构建文件
+node_modules/
+package-lock.json
+
+# 日志文件
+logs/
+
+# 项目文档（可根据需要调整）
+backend/target/
+README_*.md
+xuqiu.prd
+
+# 自动生成文件
+swagger.json
+xuqiu.prd
+database/

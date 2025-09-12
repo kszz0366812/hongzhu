@@ -1,0 +1,9 @@
+<!-- components/selector-field/selector-field.wxml -->
+<view class="selector-field {{disabled ? 'disabled' : ''}}" bindtap="onTap">
+  <view class="selector-display {{selectedText ? '' : 'placeholder'}}">
+    <text wx:if="{{selectedText}}" class="selected-text">{{selectedText}}</text>
+    <text wx:else class="placeholder-text">{{placeholder}}</text>
+    <text wx:if="{{required}}" class="required-mark">*</text>
+  </view>
+  <view class="selector-arrow">></view>
+</view>

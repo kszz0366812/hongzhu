@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.sys.UserMapper">
+    
+    <insert id="insertOrUpdate" parameterType="com.insightflow.entity.sys.User">
+        INSERT INTO sys_user (
+            username, password, real_name, mobile,
+            email, status, role_id, dept_id,
+            create_time, update_time
+        ) VALUES (
+            #{entity.username}, #{entity.password}, #{entity.realName},
+            #{entity.mobile}, #{entity.email}, #{entity.status},
+            #{entity.roleId}, #{entity.deptId}, NOW(), NOW()
+        ) ON DUPLICATE KEY UPDATE
+            password = #{entity.password},
+            real_name = #{entity.realName},
+            mobile = #{entity.mobile},
+            email = #{entity.email},
+            status = #{entity.status},
+            role_id = #{entity.roleId},
+            dept_id = #{entity.deptId},
+            update_time = NOW()
+    </insert>
+    
+</mapper> 

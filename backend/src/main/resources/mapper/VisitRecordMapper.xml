@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.customer.VisitRecordMapper">
+    
+    <!-- 员工拜访达成率统计 -->
+    <select id="getEmployeeVisitRate" resultType="com.insightflow.dto.EmployeeVisitRateDTO">
+        SELECT 
+            e.employee_code as employeeId,
+            e.name as employeeName,
+            COUNT(v.id) as totalVisits,
+            COUNT(CASE WHEN v.is_deal = 1 THEN v.id END) as successfulVisits,
+            COUNT(CASE WHEN v.is_deal = 1 THEN v.id END) * 100.0 / COUNT(v.id) as successRate,
+            COUNT(DISTINCT v.terminal_code) as uniqueTerminals,
+            COUNT(DISTINCT CASE WHEN v.is_deal = 1 THEN v.terminal_code END) as successfulTerminals
+        FROM employee_info e
+        LEFT JOIN visit_record v ON e.employee_code = v.visitor_code
+        WHERE v.visit_time BETWEEN #{startTime} AND #{endTime}
+        AND v.deleted = 0
+        GROUP BY e.employee_code, e.name
+        ORDER BY successRate DESC
+    </select>
+    
+    <!-- 获取拜访记录列表（包含终端名称、拜访人、是否成交等详细信息） -->
+    <select id="getVisitRecordListWithDetails" resultType="com.insightflow.entity.customer.VisitRecord">
+        SELECT 
+            v.id,
+            v.visitor_code as visitorCode,
+            v.visit_time as visitTime,
+            v.terminal_code as terminalCode,
+            v.is_deal as isDeal,
+            v.create_time as createTime,
+            v.update_time as updateTime,
+            v.deleted,
+            t.terminal_name as terminalName,
+            t.customer_manager as visitorName,
+            CASE 
+                WHEN d.id IS NOT NULL THEN '是'
+                ELSE '否'
+            END as dealStatus
+        FROM visit_record v
+        LEFT JOIN terminal_info t ON v.terminal_code = t.terminal_code AND t.deleted = 0
+        LEFT JOIN deal_record d ON t.terminal_name = d.customer_name 
+            AND YEAR(v.visit_time) = YEAR(d.sales_date_time) 
+            AND MONTH(v.visit_time) = MONTH(d.sales_date_time)
+            AND d.deleted = 0
+        WHERE v.deleted = 0
+        <if test="customerManager != null and customerManager != ''">
+            AND t.customer_manager LIKE CONCAT('%', #{customerManager}, '%')
+        </if>
+        <if test="terminalCode != null and terminalCode != ''">
+            AND v.terminal_code LIKE CONCAT('%', #{terminalCode}, '%')
+        </if>
+        <if test="startTime != null">
+            AND v.visit_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND v.visit_time &lt;= #{endTime}
+        </if>
+        <if test="isDeal != null">
+            AND (
+                <if test="isDeal == 1">
+                    d.id IS NOT NULL
+                </if>
+                <if test="isDeal == 0">
+                    d.id IS NULL
+                </if>
+            )
+        </if>
+        ORDER BY v.visit_time DESC
+    </select>
+</mapper>

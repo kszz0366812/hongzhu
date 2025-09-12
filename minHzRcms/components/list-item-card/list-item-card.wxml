@@ -1,0 +1,113 @@
+<!-- components/list-item-card/list-item-card.wxml -->
+<view class="list-item-card">
+  <!-- 内容区域 -->
+  <view class="card-content" bindtap="onContentTap">
+    <!-- 标题行 -->
+    <view class="title-row">
+      <view class="title-section">
+        <text class="title">{{item.title}}</text>
+        <text class="level-label {{item.levelClass}}" wx:if="{{item.level}}">{{item.level}}</text>
+        <text class="priority-label {{item.priorityClass}}" wx:if="{{item.priority}}">{{item.priority}}</text>
+        <text class="top-label" wx:if="{{item.isTop}}">置顶</text>
+      </view>
+      <text class="status-label">{{item.status}}</text>
+    </view>
+    
+    <!-- 信息区域 -->
+    <view class="info-section" wx:if="{{item.info && item.info.length > 0}}">
+      <view class="info-row" wx:for="{{item.info}}" wx:key="label" wx:for-item="info">
+        <view class="label">{{info.label}}</view>
+        <view class="value" wx:if="{{!info.isDescription}}">{{info.value}}</view>
+      </view>
+      
+      <!-- 简介内容单独显示 -->
+      <view class="description-section" wx:for="{{item.info}}" wx:key="label" wx:for-item="info" wx:if="{{info.isDescription}}">
+        <view class="description-content">{{info.value}}</view>
+      </view>
+    </view>
+    
+    <!-- 任务描述 -->
+    <view class="task-description-section" wx:if="{{item.description}}">
+      <view class="task-description-content">{{item.description}}</view>
+    </view>
+    
+    <!-- 报告摘要 -->
+    <view class="summary-section" wx:if="{{item.summary}}">
+      <view class="summary-content">{{item.summary}}</view>
+    </view>
+    
+    <!-- 工作内容 -->
+    <view class="work-content-section" wx:if="{{item.workContent}}">
+      <view class="section-title">工作内容</view>
+      <view class="work-content-text">{{item.workContent}}</view>
+    </view>
+    
+    <!-- 遇到的问题 -->
+    <view class="issues-section" wx:if="{{item.issues}}">
+      <view class="section-title">遇到的问题</view>
+      <view class="issues-text">{{item.issues}}</view>
+    </view>
+    
+    <!-- 下一步计划 -->
+    <view class="next-plan-section" wx:if="{{item.nextPlan}}">
+      <view class="section-title">下一步计划</view>
+      <view class="next-plan-text">{{item.nextPlan}}</view>
+    </view>
+    
+    <!-- 进度条 -->
+    <view class="progress-section" wx:if="{{item.progress !== undefined && item.progress !== null}}">
+      <view class="progress-info">
+        <view class="progress-text">{{item.progressLabel || '进度'}}</view>
+        <view class="progress-text">{{item.progress}}%</view>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{item.progress}}%"></view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 项目成员 -->
+  <view class="members-section" wx:if="{{item.members && item.members.length > 0}}">
+    <view class="members-header" catchtap="toggleMembers" data-id="{{item.id}}">
+      <view class="members-title-section">
+        <text class="members-title">项目成员</text>
+        <text class="members-count">({{item.members.length}}人)</text>
+      </view>
+      <view class="expand-icon {{item.showMembers ? 'expanded' : ''}}">▼</view>
+    </view>
+    <view class="members-grid {{item.showMembers ? 'expanded' : ''}}" wx:if="{{item.members && item.members.length > 0}}">
+      <view class="member-item" wx:for="{{item.members}}" wx:key="id" wx:for-item="member">
+        <view class="member-avatar">
+          <image 
+            wx:if="{{member.avatar}}" 
+            src="{{member.avatar}}" 
+            class="avatar-img"
+            mode="aspectFill"
+          />
+          <image 
+            wx:else 
+            src="/utils/images/default-avatar.png" 
+            class="avatar-img"
+            mode="aspectFill"
+          />
+        </view>
+        <text class="member-name">{{member.name}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 操作按钮 -->
+  <view class="actions-section" wx:if="{{item.actions && item.actions.length > 0}}">
+    <button 
+      class="action-btn {{action.type || ''}} {{action.disabled ? 'disabled' : ''}}" 
+      wx:for="{{item.actions}}" 
+      wx:key="text" 
+      wx:for-item="action"
+      catchtap="{{action.disabled ? '' : 'onActionTap'}}" 
+      data-action="{{action}}"
+      disabled="{{action.disabled}}"
+    >
+      {{action.text}}
+    </button>
+  </view>
+</view> 

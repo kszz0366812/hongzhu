@@ -1,0 +1,18 @@
+<!-- components/attachment-uploader/attachment-uploader.wxml -->
+<view class="attachment-uploader">
+  <view class="attachment-section">
+    <view class="attachment-list" wx:if="{{attachments.length > 0}}">
+      <view class="attachment-item" wx:for="{{attachments}}" wx:key="index">
+        <view class="attachment-info">
+          <view class="attachment-name">{{item.name}}</view>
+          <view class="attachment-size">{{item.size}}</view>
+        </view>
+        <view class="remove-attachment" bindtap="removeAttachment" data-index="{{index}}">×</view>
+      </view>
+    </view>
+    <view class="upload-btn" bindtap="chooseFiles" wx:if="{{!disabled && attachments.length < maxCount}}">
+      <text class="upload-icon">📎</text>
+      <text class="upload-text">选择文件</text>
+    </view>
+  </view>
+</view> 

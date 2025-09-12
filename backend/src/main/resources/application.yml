@@ -1,0 +1,115 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: insight-flow
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  
+  # Jackson 配置
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false  # 忽略未知属性，不抛出异常
+    default-property-inclusion: non_null  # 只序列化非null值
+  
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/insight_flow?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: test
+    password: test
+  
+  # Redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 10000
+      lettuce:
+        pool:
+          min-idle: 1  # 必须 >0
+          max-idle: 8
+          max-active: 8
+
+# MyBatis Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.insightflow.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JPA 配置
+jpa:
+  hibernate:
+    ddl-auto: update
+  show-sql: true
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+jwt:
+    secret: 1A7F3E9D2C5B8A0F4E6D1C2B3A8F7E9D
+    expire: 86400 # 单位秒
+
+# 文件上传配置
+file:
+  upload:
+    path: /data/insight-flow/uploads/
+    max-size: 10MB
+    allowed-types: xlsx,xls
+
+# SFTP 远程服务器配置
+sftp:
+  host: 47.100.174.20
+  port: 22
+  username: root
+  password: Kszz0366812
+  remote-base-path: /home/ftp/static/crms
+  http-base-url: http://47.100.174.20/static/crms
+  connection-timeout: 30000
+  session-timeout: 30000
+
+# 日志配置
+logging:
+  level:
+    org.springframework.beans: DEBUG
+    org.springframework.context: DEBUG
+    root: INFO
+    com.insightflow: DEBUG
+  file:
+    name: logs/insight-flow.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  packages-to-scan: com.insightflow.controller
+  paths-to-match: /**
+
+
+
+#微信
+wechat:
+    appid: wxb097295d383c4a0f
+    secret: 90d42bdd92e37e01ce5d0329cb1a4229

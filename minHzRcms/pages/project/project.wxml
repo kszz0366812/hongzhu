@@ -1,0 +1,40 @@
+<!-- pages/project/project.wxml -->
+<view class="container">
+  <!-- 统计信息 -->
+  <stats-section stats="{{statsData}}" layout="grid4" />
+
+  <!-- 操作按钮 -->
+  <action-buttons buttons="{{actionButtons}}" bind:buttonTap="onActionButtonTap" />
+
+  <!-- 标签页 -->
+  <tabs-section tabs="{{tabsData}}" activeTab="{{activeTab}}" bind:tabChange="onTabChange" />
+
+  <!-- 项目列表 -->
+  <view class="project-list">
+    <list-item-card 
+      wx:for="{{filteredProjects}}" 
+      wx:key="id"
+      item="{{item}}"
+      bind:contentTap="navigateToProjectDetail"
+      bind:actionTap="onProjectActionTap"
+      bind:toggleMembers="onToggleMembers"
+    />
+  </view>
+
+  <!-- 空状态 -->
+  <empty-state show="{{filteredProjects.length === 0}}" text="暂无项目" />
+
+  <!-- 成员选择器 -->
+  <member-selector 
+    show="{{showInviteModal}}"
+    title="邀请成员"
+    placeholder="搜索成员..."
+    members="{{availableMembers}}"
+    selectedIds="{{invitedMemberIds}}"
+    confirmText="邀请"
+    multiple="{{true}}"
+    bind:close="onInviteModalClose"
+    bind:select="onInviteMemberSelect"
+  />
+</view>
+

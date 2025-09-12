@@ -1,0 +1,99 @@
+<!-- pages/my-projects/my-projects.wxml -->
+<view class="container">
+  <!-- 统计信息 -->
+  <view class="stats-section">
+    <view class="stats-item">
+      <view class="stats-number">{{totalProjects}}</view>
+      <view class="stats-label">总项目</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-number">{{ongoingProjects}}</view>
+      <view class="stats-label">进行中</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-number">{{pendingProjects}}</view>
+      <view class="stats-label">待安排</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-number">{{completedProjects}}</view>
+      <view class="stats-label">已完成</view>
+    </view>
+  </view>
+
+  <!-- 标签页 -->
+  <view class="tabs-section">
+    <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{activeTab === 'ongoing' ? 'active' : ''}}" bindtap="switchTab" data-tab="ongoing">进行中</view>
+    <view class="tab-item {{activeTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">待安排</view>
+    <view class="tab-item {{activeTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+  </view>
+
+    <!-- 项目列表 -->
+  <view class="project-list">
+    <view class="project-item" wx:for="{{filteredProjects}}" wx:key="id">
+      <view class="project-content" bindtap="navigateToProjectDetail" data-id="{{item.id}}">
+        <view class="project-title-row">
+          <view class="project-title-section">
+            <text class="project-title">{{item.name}}</text>
+            <text class="project-level-label {{item.levelClass}}">{{item.level || item.priority}}</text>
+          </view>
+          <text class="project-status-label {{item.statusClass}}">{{item.status}}</text>
+        </view>
+        
+        <view class="project-info">
+          <view class="info-row">
+            <view class="label">项目周期：</view>
+            <view class="value">{{item.startDate}} 至 {{item.endDate}}</view>
+          </view>
+          <view class="info-row">
+            <view class="label">项目简介：</view>
+            <view class="value">{{item.description}}</view>
+          </view>
+          <view class="info-row">
+            <view class="label">项目等级：</view>
+            <view class="value">{{item.level || item.priority}}</view>
+          </view>
+        </view>
+        
+        <view class="project-progress">
+          <view class="progress-info">
+            <view class="progress-text">项目进度</view>
+            <view class="progress-text">{{item.progress}}%</view>
+          </view>
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.progress}}%"></view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 项目成员 -->
+      <view class="project-members">
+        <view class="members-header" catchtap="toggleMembers" data-id="{{item.id}}">
+          <view class="members-title-section">
+            <text class="members-title">项目成员</text>
+            <text class="members-count">({{item.invitedMembers.length}}人)</text>
+          </view>
+          <view class="expand-icon {{item.showMembers ? 'expanded' : ''}}">▼</view>
+        </view>
+        <view class="members-grid {{item.showMembers ? 'expanded' : ''}}" wx:if="{{item.invitedMembers && item.invitedMembers.length > 0}}">
+          <view class="member-item" wx:for="{{item.invitedMembers}}" wx:key="id" wx:for-item="member">
+            <view class="member-avatar">👤</view>
+            <text class="member-name">{{member.name}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="project-actions">
+        <button class="action-btn" catchtap="inviteMembers" data-id="{{item.id}}">邀请成员</button>
+        <button class="action-btn" catchtap="updateProgress" data-id="{{item.id}}">更新进度</button>
+        <button class="action-btn" catchtap="editProject" data-id="{{item.id}}">编辑</button>
+        <button class="action-btn delete" catchtap="deleteProject" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredProjects.length === 0}}">
+    <view class="empty-text">暂无项目</view>
+  </view>
+</view> 

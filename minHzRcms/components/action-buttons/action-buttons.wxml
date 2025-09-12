@@ -1,0 +1,12 @@
+<!-- components/action-buttons/action-buttons.wxml -->
+<view class="action-buttons" wx:if="{{buttons && buttons.length > 0}}">
+  <button 
+    class="create-btn {{item.type || 'secondary'}}" 
+    wx:for="{{buttons}}" 
+    wx:key="text"
+    bindtap="onButtonTap" 
+    data-index="{{index}}"
+  >
+    {{item.text}}
+  </button>
+</view> 

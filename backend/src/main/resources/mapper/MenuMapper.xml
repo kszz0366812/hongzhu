@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.sys.MenuMapper">
+
+    <!-- 查询用户菜单列表 -->
+    <select id="selectUserMenus" resultType="com.insightflow.entity.sys.Menu">
+        SELECT DISTINCT m.*
+        FROM sys_menu m
+        INNER JOIN sys_role_menu rm ON m.id = rm.menu_id
+        INNER JOIN sys_user u ON u.role_id = rm.role_id
+        WHERE u.id = #{userId}
+        AND m.deleted = 0
+        AND m.status = 1
+        ORDER BY m.order_num
+    </select>
+
+    <!-- 查询用户权限列表 -->
+    <select id="selectUserPerms" resultType="java.lang.String">
+        SELECT DISTINCT m.perms
+        FROM sys_menu m
+        INNER JOIN sys_role_menu rm ON m.id = rm.menu_id
+        INNER JOIN sys_user u ON u.role_id = rm.role_id
+        WHERE u.id = #{userId}
+        AND m.deleted = 0
+        AND m.status = 1
+        AND m.perms IS NOT NULL
+        AND m.perms != ''
+    </select>
+
+</mapper> 

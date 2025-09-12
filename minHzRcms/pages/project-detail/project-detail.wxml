@@ -1,0 +1,92 @@
+<!-- pages/project-detail/project-detail.wxml -->
+<view class="container">
+  <!-- 项目时间条 -->
+  <view class="project-time-bar">
+    <text class="time-text">项目时间: {{projectInfo.startDate || '未设置'}} 至 {{projectInfo.endDate || '未设置'}}</text>
+  </view>
+
+  <!-- 项目概览 -->
+  <view class="project-overview">
+    <view class="project-header">
+      <view class="project-name-section">
+        <text class="project-name">{{projectInfo.name || '未命名项目'}}</text>
+        <text class="top-indicator" wx:if="{{projectInfo.topUp === 1}}">置顶</text>
+      </view>
+      <view class="project-actions">
+        <button class="action-menu-btn" bindtap="showActionMenu">
+          <text class="action-text">操作</text>
+          <text class="action-arrow">▼</text>
+        </button>
+      </view>
+    </view>
+    <view class="project-content-card">
+      <view class="content-stripe"></view>
+      <view class="project-content-text">{{projectInfo.description}}</view>
+    </view>
+    <view class="project-tags-row">
+      <view class="project-tags">
+        <view class="tag level-{{projectInfo.levelClass}}">{{projectInfo.level}}</view>
+        <view class="tag priority-{{projectInfo.priorityClass}}">{{projectInfo.priority}}</view>
+        <view class="tag status-{{projectInfo.statusClass}}">{{projectInfo.statusText}}</view>
+      </view>
+    </view>
+    
+    <view class="project-metrics">
+      <view class="metric-item">
+        <text class="metric-label">项目等级</text>
+        <text class="metric-value">{{projectInfo.level || '普通'}}</text>
+      </view>
+      <view class="metric-item">
+        <text class="metric-label">项目优先级</text>
+        <text class="metric-value">{{projectInfo.priority || '普通'}}</text>
+      </view>
+      <view class="metric-item">
+        <text class="metric-label">创建者</text>
+        <text class="metric-value">{{projectInfo.createName || '未知'}}</text>
+      </view>
+      <view class="metric-item">
+        <text class="metric-label">负责人</text>
+        <text class="metric-value">{{projectInfo.managerName || '未设置'}}</text>
+      </view>
+      <view class="metric-item">
+        <text class="metric-label">总工期</text>
+        <text class="metric-value">{{projectInfo.totalDays || 0}}天</text>
+      </view>
+      <view class="metric-item">
+        <text class="metric-label">剩余工期</text>
+        <text class="metric-value">{{projectInfo.remainingDays || 0}}天</text>
+      </view>
+    </view>
+    
+    <view wx:if="{{projectInfo.attachments.length > 0}}" class="attachments-area">
+      <view class="attachments-title">附件</view>
+      <view class="attachments-list">
+        <block wx:for="{{projectInfo.attachments}}" wx:key="index">
+          <view class="attachment-item">
+            <text class="attachment-name">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    
+  </view>
+
+  <!-- 进度时间线 -->
+  <view class="progress-timeline">
+    <view class="timeline-line"></view>
+    
+    <view class="timeline-item {{index === 0 ? 'timeline-item-first' : ''}}" wx:for="{{progressList}}" wx:key="id" bindtap="editProgress" data-progress="{{item}}">
+      <view class="timeline-dot"></view>
+      <view class="timeline-content">
+        <view class="timeline-header">
+          <view class="timeline-time">{{item.date}}</view>
+          <view class="timeline-progress">{{item.progress}}%</view>
+        </view>
+        <view class="timeline-text">{{item.description}}</view>
+      </view>
+    </view>
+    
+    <view class="no-more" wx:if="{{progressList.length === 0}}">暂无进度记录</view>
+  </view>
+
+</view> 

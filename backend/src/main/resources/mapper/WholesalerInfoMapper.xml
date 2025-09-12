@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insightflow.mapper.customer.WholesalerInfoMapper">
+    
+    <insert id="insertOrUpdate" parameterType="com.insightflow.entity.customer.WholesalerInfo">
+        INSERT INTO wholesaler_info (
+            dealer_code, dealer_name, level, contact_person, 
+            contact_phone, customer_manager, create_time, update_time
+        ) VALUES (
+            #{entity.dealerCode}, #{entity.dealerName}, #{entity.level}, 
+            #{entity.contactPerson}, #{entity.contactPhone}, #{entity.customerManager},
+            NOW(), NOW()
+        ) ON DUPLICATE KEY UPDATE
+            dealer_name = #{entity.dealerName},
+            level = #{entity.level},
+            contact_person = #{entity.contactPerson},
+            contact_phone = #{entity.contactPhone},
+            customer_manager = #{entity.customerManager},
+            update_time = NOW()
+    </insert>
+    
+</mapper> 

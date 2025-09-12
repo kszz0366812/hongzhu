@@ -1,0 +1,7 @@
+<!-- components/stats-section/stats-section.wxml -->
+<view class="stats-section {{layout}}" wx:if="{{stats && stats.length > 0}}">
+  <view class="stats-item" wx:for="{{stats}}" wx:key="label">
+    <view class="stats-number">{{item.number}}</view>
+    <view class="stats-label">{{item.label}}</view>
+  </view>
+</view> 

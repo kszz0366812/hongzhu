@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/personal/personal",
+    "pages/project/project",
+    "pages/task/task",
+    "pages/report/report",
+    "pages/create-project/create-project",
+    "pages/edit-project/edit-project",
+    "pages/project-detail/project-detail",
+    "pages/task-form/task-form",
+    "pages/task-detail/task-detail",
+    "pages/assign-task/assign-task",
+    "pages/update-progress/update-progress",
+    "pages/progress-detail/progress-detail",
+    "pages/create-report/create-report",
+    "pages/report-detail/report-detail",
+    "pages/daily-weekly-report/daily-weekly-report",
+    "pages/my-projects/my-projects",
+    "pages/my-tasks/my-tasks",
+
+    "pages/team-management/team-management",
+    "pages/statistics/statistics",
+    "pages/system-settings/system-settings",
+    "pages/personal-info/personal-info",
+    "pages/test-login/test-login"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "项目管理系统",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/project/project",
+        "iconPath": "utils/images/tabbar/project.png",
+        "selectedIconPath": "utils/images/tabbar/project-active.png",
+        "text": "项目"
+      },
+      {
+        "pagePath": "pages/task/task",
+        "iconPath": "utils/images/tabbar/task.png",
+        "selectedIconPath": "utils/images/tabbar/task-active.png",
+        "text": "任务"
+      },
+      {
+        "pagePath": "pages/report/report",
+        "iconPath": "utils/images/tabbar/report.png",
+        "selectedIconPath": "utils/images/tabbar/report-active.png",
+        "text": "报告"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "iconPath": "utils/images/tabbar/personal.png",
+        "selectedIconPath": "utils/images/tabbar/personal-active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
